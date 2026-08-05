@@ -1,0 +1,2 @@
+# MethodDkaWindows11
+DKA法をホーナー法の検算する高次多項式を解く及び因数分解
