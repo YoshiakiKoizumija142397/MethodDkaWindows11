@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title id="help-page-title">MethodDka ヘルプ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.8;
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+        }
+
+        .section {
+            background: #fff;
+            padding: 20px 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+
+        .back-btn {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+            .back-btn:hover {
+                background-color: #5a6268;
+            }
+    </style>
+</head>
+<body>
+
+    <button class="back-btn" onclick="goBack()" id="btn-back">← 戻る</button>
+
+    <h1 id="h-title">MethodDka ヘルプ（正式公開バージョン）</h1>
+
+    <div class="section">
+        <h2 id="h-overview-title">概要</h2>
+        <p id="h-overview-desc">
+            MethodDka は、高精度な多項式解法および因数分解を行うための本格的なデスクトップアプリケーションです。
+            Decimal.js を用いた <strong>50桁超高精度演算</strong> と最大200次対応のオートスケーリング機能を搭載しています。
+        </p>
+        <p>
+            <span id="txt-author">作者</span>：小泉嘉章 (Koizumi Yoshiaki)<br>
+            Email: ja142397@s6.dion.ne.jp<br>
+            <strong>Version 1.0.0</strong>
+        </p>
+    </div>
+
+    <div class="section">
+        <h2 id="h-precision-title">精度保証と誤差半径について</h2>
+        <p id="h-precision-desc">
+            本バージョンでは、計算された各根に対して<strong>「誤差半径」</strong>がリアルタイムで算出・表示されます。
+            ホーナー法等を用いた厳密な評価により、求まった解が数学的に正しく高精度に収束しているかを確認することが可能です。
+        </p>
+    </div>
+
+    <div class="section">
+        <h2 id="h-usage-title">使い方</h2>
+        <p id="h-usage-desc">
+            1. 最高次数を指定します。<br>
+            2. 各係数をカンマ区切りなどで入力します。<br>
+            3. 「計算実行」ボタンを押すことで、50桁精度による高精度な根の算出と検証が行われます。
+        </p>
+    </div>
+
+    <script>
+        const helpTexts = {
+            ja: {
+                pageTitle: "MethodDka ヘルプ",
+                back: "← 戻る",
+                title: "MethodDka ヘルプ（正式公開バージョン）",
+                overviewTitle: "概要",
+                overviewDesc: "MethodDka は、高精度な多項式解法および因数分解を行うための本格的なデスクトップアプリケーションです。Decimal.js を用いた <strong>50桁超高精度演算</strong> と最大200次対応のオートスケーリング機能を搭載しています。",
+                authorLabel: "作者",
+                precisionTitle: "精度保証と誤差半径について",
+                precisionDesc: "本バージョンでは、計算された各根に対して<strong>「誤差半径」</strong>がリアルタイムで算出・表示されます。ホーナー法等を用いた厳密な評価により、求まった解が数学的に正しく高精度に収束しているかを確認することが可能です。",
+                usageTitle: "使い方",
+                usageDesc: "1. 最高次数を指定します。<br>2. 各係数をカンマ区切りなどで入力します。<br>3. 「計算実行」ボタンを押すことで、50桁精度による高精度な根の算出と検証が行われます。"
+            },
+            en: {
+                pageTitle: "MethodDka Help",
+                back: "← Back",
+                title: "MethodDka Help (Official Release)",
+                overviewTitle: "Overview",
+                overviewDesc: "MethodDka is a full-scale desktop application for high-precision polynomial solving and factorization, featuring <strong>over 50-digit high-precision arithmetic</strong> using Decimal.js and auto-scaling up to the 200th degree.",
+                authorLabel: "Author",
+                precisionTitle: "Precision Guarantee & Error Radius",
+                precisionDesc: "In this version, the <strong>'error radius'</strong> is calculated and displayed in real-time for each root. Through rigorous evaluation using Horner's method and others, you can verify that the obtained solutions have converged correctly and with high precision.",
+                usageTitle: "How to Use",
+                usageDesc: "1. Specify the highest degree.<br>2. Enter the coefficients separated by commas.<br>3. Click the 'Execute Calculation' button to calculate and verify the roots with 50-digit precision."
+            }
+        };
+
+        let currentLang = localStorage.getItem('methoddka_lang') || 'ja';
+        const t = helpTexts[currentLang];
+
+        document.getElementById('help-page-title').innerText = t.pageTitle;
+        document.getElementById('btn-back').innerText = t.back;
+        document.getElementById('h-title').innerText = t.title;
+        document.getElementById('h-overview-title').innerText = t.overviewTitle;
+        document.getElementById('h-overview-desc').innerHTML = t.overviewDesc;
+        document.getElementById('txt-author').innerText = t.authorLabel;
+        document.getElementById('h-precision-title').innerText = t.precisionTitle;
+        document.getElementById('h-precision-desc').innerHTML = t.precisionDesc;
+        document.getElementById('h-usage-title').innerText = t.usageTitle;
+        document.getElementById('h-usage-desc').innerHTML = t.usageDesc;
+
+        function goBack() {
+            window.location.href = 'MethodDka.html';
+        }
+    </script>
+</body>
+</html>

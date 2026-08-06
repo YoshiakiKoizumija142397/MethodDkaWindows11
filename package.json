@@ -1,0 +1,62 @@
+{
+  "name": "methoddka-app",
+  "version": "1.0.0",
+  "description": "MethodDka - High Precision Polynomial Solver",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win",
+    "build:win": "electron-builder --win --x64"
+  },
+  "build": {
+    "appId": "com.methoddka.app",
+    "productName": "MethodDka",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "msi"
+      ],
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "MethodDka",
+      "uninstallDisplayName": "MethodDka"
+    },
+    "msi": {
+      "oneClick": true,
+      "perMachine": true,
+      "shortcutName": "MethodDka",
+      "warningsAsErrors": false
+    },
+    "extraResources": [
+      {
+        "from": "help.html",
+        "to": "help.html"
+      },
+      {
+        "from": "decimal.js",
+        "to": "decimal.js"
+      },
+      {
+        "from": "preload.js",
+        "to": "preload.js"
+      }
+    ]
+  },
+  "devDependencies": {
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8"
+  },
+  "author": {
+    "name": "Koizumi Yoshiaki",
+    "email": "ja142397@s6.dion.ne.jp"
+  }
+}

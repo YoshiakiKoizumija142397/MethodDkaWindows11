@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MethodDka - High-Precision Polynomial Solver & Audio DSP App</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 20px; background: #fdfdfd; }
+        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eaeaea; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { font-size: 1.8rem; margin: 0; color: #111; }
+        .lang-btn { background: #0366d6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .lang-btn:hover { background: #0056b3; }
+        section { margin-bottom: 40px; }
+        .card { background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 8px; padding: 24px; margin-top: 20px; }
+        a { color: #0366d6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        ul { padding-left: 20px; }
+        code { background: rgba(175,184,193,0.2); padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MethodDka</h1>
+        <button class="lang-btn" onclick="toggleLanguage()">English / 日本語</button>
+    </header>
+
+    <main>
+        <!-- 概要セクション -->
+        <section>
+            <h2 id="sec-title" data-lang-ja="200次対応 & 50桁高精度多項式解法・因数分解 Web アプリ" data-lang-en="200th-Degree & 50-Digit High-Precision Polynomial Solver">200次対応 & 50桁高精度多項式解法・因数分解 Web アプリ</h2>
+            <p id="sec-desc" data-lang-ja="HTMLとJavaScriptだけで動作する超高精度な多項式解法アプリです。DKA法とDecimal.jsによる50桁高精度演算、最大200次対応オートスケーリングを搭載しています。"
+               data-lang-en="A lightweight, ultra-high-precision web application for solving polynomials, powered by the DKA method and Decimal.js for 50-digit precision up to degree 200.">
+               HTMLとJavaScriptだけで動作する超高精度な多項式解法アプリです。DKA法とDecimal.jsによる50桁高精度演算、最大200次対応オートスケーリングを搭載しています。
+            </p>
+            <p>
+                👉 <a href="MethodDka.html" data-lang-ja="Webアプリ本体 (MethodDka.html) を開く" data-lang-en="Open Web App (MethodDka.html)">Webアプリ本体 (MethodDka.html) を開く</a> | 
+                👉 <a href="https://github.com/YoshiakiKoizumija142397/MethodDka" target="_blank" data-lang-ja="GitHubリポジトリ" data-lang-en="GitHub Repository">GitHubリポジトリ</a>
+            </p>
+        </section>
+
+        <!-- Audio DSP 応用例セクション -->
+        <section class="card">
+            <h2 data-lang-ja="🎧 応用例: SONY SS-CS5 マルチアンプ化デジタルチャンネルデバイダー" data-lang-en="🎧 Application: Digital Crossover for SONY SS-CS5 Multi-Amp System">
+                🎧 応用例: SONY SS-CS5 マルチアンプ化デジタルチャンネルデバイダー
+            </h2>
+            <p><strong>【New Application: High-Resolution Audio Digital Crossover & Minimum-Phase FIR Filter Design】</strong></p>
+            <p data-lang-ja="3WAYスピーカー「SONY SS-CS5」の内蔵ネットワーク（コンデンサやコイルなどの受動素子による音質劣化・損失）を完全に排除するため、7.1ch HDMI接続ハイレゾアンプの6ch（中古保証付き）を活用したマルチアンプシステムを構築。デジタルプリアンプとパワーアンプの間に挿入する「ミニマムフェーズFIRフィルター係数」のオフライン設計に、本ツールの Durand-Kerner-Aberth法（MethodDka）と decimal.js による50桁高精度演算を応用します。"
+               data-lang-en="To completely eliminate sound quality degradation from passive components in the built-in network of the 3-way speaker SONY SS-CS5, this builds a multi-amp system utilizing 6 channels of a 7.1ch HDMI high-res amp. It applies Durand-Kerner-Aberth method and 50-digit high-precision calculation to design 'minimum-phase FIR filter coefficients' inserted between the digital preamp and power amps.">
+                3WAYスピーカー「SONY SS-CS5」の内蔵ネットワーク（コンデンサやコイルなどの受動素子による音質劣化・損失）を完全に排除するため、7.1ch HDMI接続ハイレゾアンプの6ch（中古保証付き）を活用したマルチアンプシステムを構築。デジタルプリアンプとパワーアンプの間に挿入する「ミニマムフェーズFIRフィルター係数」のオフライン設計に、本ツールの Durand-Kerner-Aberth法（MethodDka）と decimal.js による50桁高精度演算を応用します。
+            </p>
+
+            <h3 data-lang-ja="開発設計の前提条件とスペック・ユースケース" data-lang-en="Development Specs & Prerequisites">開発設計の前提条件とスペック・ユースケース</h3>
+            <ul>
+                <li><strong data-lang-ja="OS環境:" data-lang-en="OS Environment:">OS環境:</strong> Windows 11 Home (25H2)</li>
+                <li><strong data-lang-ja="音源・サンプリング周波数:" data-lang-en="Audio Source & Sampling Rate:">音源・サンプリング周波数:</strong> Amazon Music Unlimited (ハイレゾ配信 24bit / 96kHz)</li>
+                <li><strong data-lang-ja="ターゲットスピーカー:" data-lang-en="Target Speaker:">ターゲットスピーカー:</strong> SONY SS-CS5 (3WAY・内蔵ネットワーク完全バイパス)</li>
+                <li><strong data-lang-ja="ハードウェア構成:" data-lang-en="Hardware Setup:">ハードウェア構成:</strong> 7.1ch HDMIアンプの6ch流用マルチアンプ駆動（デジタルプリアンプ ～ チャンネルデバイダー ～ パワーアンプ）</li>
+                <li>
+                    <strong data-lang-ja="クロスオーバー周波数 (3-WAY):" data-lang-en="Crossover Frequencies (3-WAY):">クロスオーバー周波数 (3-WAY):</strong>
+                    <ul>
+                        <li data-lang-ja="Low / Mid (2.5kHz): 200タップによる急峻な減衰と、位相のブレない自然な繋がり。" data-lang-en="Low / Mid (2.5kHz): Steep attenuation by 200 taps and natural phase alignment.">Low / Mid (2.5kHz): 200タップによる急峻な減衰と、位相のブレない自然な繋がり。</li>
+                        <li data-lang-ja="Mid / High (17kHz): スーパートゥイーターを正確に駆動する高精度フィルタリング。" data-lang-en="Mid / High (17kHz): High-precision filtering accurately driving super tweeters.">Mid / High (17kHz): スーパートゥイーターを正確に駆動する高精度フィルタリング。</li>
+                    </ul>
+                </li>
+                <li><strong data-lang-ja="最大のメリット:" data-lang-en="Key Benefit:">最大のメリット:</strong> <span data-lang-ja="パッシブネットワークを排除したユニット直結駆動と、プレエコー（プリリンギング）を排除する「ミニマムフェーズ化」を、50桁の数学的精度でノーエラーで実行。" data-lang-en="Executes network-free direct unit driving and 'minimum-phase conversion' to eliminate pre-echo with 50-digit mathematical precision.">パッシブネットワークを排除したユニット直結駆動と、プレエコー（プリリンギング）を排除する「ミニマムフェーズ化」を、50桁の数学的精度でノーエラーで実行。</span></li>
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        let isJa = true;
+        function toggleLanguage() {
+            isJa = !isJa;
+            document.querySelectorAll('[data-lang-ja]').forEach(el => {
+                el.textContent = el.getAttribute(isJa ? 'data-lang-ja' : 'data-lang-en');
+            });
+        }
+    </script>
+</body>
+</html>
