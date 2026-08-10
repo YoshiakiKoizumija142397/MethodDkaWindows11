@@ -68,22 +68,22 @@ Powered by the Durand-Kerner (DKA) algorithm and Decimal.js with *50-digit preci
 
 ---
 
-## 🧪 ベンチマーク: 15次ウィルキンソン多項式 / Benchmark: 15th-Degree Wilkinson Polynomial
+## 🧪 ベンチマーク: 10次ウィルキンソン多項式 / Benchmark: 10th-Degree Wilkinson Polynomial
 
-本アプリの DKA法の特性（悪条件多項式におけるサドルポイントへの引き込み）を検証するためのテストケースとして、*15次のウィルキンソン多項式* $W_{15}(x) = \prod_{i=1}^{15} (x - i)$ を `index.html` に組み込みました。
+本アプリの DKA法の特性（悪条件多項式におけるサドルポイントへの引き込み）を検証するためのテストケースとして、*10次のウィルキンソン多項式* $W_{10}(x) = \prod_{i=1}^{10} (x - i)$ を `index.html` に組み込みました。
 
-💡 **補足 / Note (悪条件多項式について / Ill-conditioned polynomials):** 本アプリはオートスケーリング処理により最大200次までの計算に対応していますが、ウィルキンソン多項式のように「根が実軸上に極めて密集して並ぶ悪条件多項式（Ill-conditioned polynomials）」では、並列円周初期値を用いる DKA 法の性質上、高次（15次以上）で複素数領域の鞍点へ引き込まれる（偽収束する）場合があります。通常分散された多項式では高次まで正常に動作します。
+💡 **補足 / Note (悪条件多項式について / Ill-conditioned polynomials):** 本アプリはオートスケーリング処理により最大200次までの計算に対応していますが、ウィルキンソン多項式のように「根が実軸上に極めて密集して並ぶ悪条件多項式（Ill-conditioned polynomials）」では、並列円周初期値を用いる DKA 法の性質上、高次（10次以上）で複素数領域の鞍点へ引き込まれる（偽収束する）場合があります。通常分散された多項式では高次まで正常に動作します。
 
 ### テスト手順 (How to test):
-1. ランディングページ ([index.html](https://github.com/YoshiakiKoizumija142397/MethodDka/blob/main/index.html)) にアクセスします。
-2. 「15次ウィルキンソン係数を生成 (Generate 15th-degree Wilkinson)」ボタンをクリックします。
-3. 生成された係数をコピーし、[MethodDka.html](https://github.com/YoshiakiKoizumija142397/MethodDka/blob/main/MethodDka.html) の「一括ペースト」エリアに貼り付けて計算を実行してください。
+1. ヘルプページ ([help.html](https://github.com/YoshiakiKoizumija142397/MethodDka/blob/main/help.html)) にアクセスします。
+2. 「10次ウィルキンソン係数をコピペします。
+3. Calculator[MethodDka.html](https://github.com/YoshiakiKoizumija142397/MethodDka/blob/main/MethodDka.html) の「一括ペースト」エリアに貼り付けて計算を実行してください。
 
 ---
 
 ## 🌐 公式ページ ＆ リポジトリ / Official Links
 
-- **Web アプリ (Live Demo):** [MethodDka Live Demo](https://yoshiakikoizumija142397.github.io/MethodDka/MethodDka.html)
+- **Web アプリ (Live Demo):** [MethodDka Live Demo](https://yoshiakikoizumija142397.github.io/MethodDka/)
 - **GitHub リポジトリ (Repository):** [MethodDka Repository](https://github.com/YoshiakiKoizumija142397/MethodDka)
 
 ---
@@ -92,6 +92,7 @@ Powered by the Durand-Kerner (DKA) algorithm and Decimal.js with *50-digit preci
 
 ```text
 MethodDka/
+├── help.html              #　ヘルプと１０次ウィルキンソン係数一括読み込み対応データ
 ├── MethodDka.html         # 統合マスターコード / Multilingual master code
 ├── index.html             # 公式ランディングページ (ベンチマーク生成機能付き) / Official Landing Page
 └── README.md              # 本ドキュメント / Documentation

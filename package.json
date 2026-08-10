@@ -1,6 +1,6 @@
 {
   "name": "methoddka-app",
-  "version": "1.0.0",
+  "version": "2.5.1",
   "description": "MethodDka - High Precision Polynomial Solver",
   "main": "main.js",
   "scripts": {
@@ -25,6 +25,9 @@
       "oneClick": false,
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
+      "multiLanguageInstaller": true,
+      "language": "1041,1033",
+      "include": "installer.nsh",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "MethodDka",
@@ -36,19 +39,14 @@
       "shortcutName": "MethodDka",
       "warningsAsErrors": false
     },
-    "extraResources": [
-      {
-        "from": "help.html",
-        "to": "help.html"
-      },
-      {
-        "from": "decimal.js",
-        "to": "decimal.js"
-      },
-      {
-        "from": "preload.js",
-        "to": "preload.js"
-      }
+    "files": [
+      "main.js",
+      "preload.js",
+      "index.html",
+      "MethodDka.html",
+      "help.html",
+      "decimal.js",
+      "icon.ico"
     ]
   },
   "devDependencies": {
