@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MethodDka - Privacy Policy / プライバシーポリシー</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --border: #e2e8f0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+    h1 { margin: 0; font-size: 1.6rem; color: var(--primary); }
+    .lang-btn {
+      background: #e2e8f0;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover { background: #cbd5e1; }
+    .section {
+      margin-bottom: 25px;
+    }
+    h2 {
+      font-size: 1.2rem;
+      color: var(--primary);
+      border-left: 4px solid var(--primary);
+      padding-left: 10px;
+      margin-bottom: 12px;
+    }
+    .nav-links {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+    .nav-links a { color: var(--primary); text-decoration: none; margin: 0 10px; font-weight: bold; }
+    .nav-links a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header-bar">
+    <h1 id="app-title">🔒 プライバシーポリシー</h1>
+    <button class="lang-btn" onclick="toggleLanguage()" id="lang-toggle-btn">English</button>
+  </div>
+
+  <div class="section">
+    <h2 id="sec1-title">1. 完全オフライン ＆ クライアントサイド動作</h2>
+    <p id="sec1-body">MethodDka は、全ての数値演算・表示処理をユーザーのブラウザ内（完全クライアントサイド）でのみ実行します。入力された係数データ、計算過程、および算出された解データが外部サーバーに送信または収集されることは一切ありません。</p>
+  </div>
+
+  <div class="section">
+    <h2 id="sec2-title">2. 個人情報の収集・蓄積について</h2>
+    <p id="sec2-body">本アプリケーションは、ユーザーの個人情報、アクセスログ、クッキー（Cookies）、トラッキングデータ等を収集・保存・解析する機能を一切含んでおりません。完全なプライバシー保護環境で安心してご利用いただけます。</p>
+  </div>
+
+  <div class="section">
+    <h2 id="sec3-title">3. 外部ライブラリについて</h2>
+    <p id="sec3-body">本アプリは高精度演算に `Decimal.js`（CDN経由）を使用しています。スクリプトの初回読み込み時を除き、通信やトラッキングは発生いたしません。</p>
+  </div>
+
+  <div class="nav-links">
+    <a href="index.html" id="link-home">ホーム</a> |
+    <a href="MethodDka.html" id="link-calc">計算アプリ</a> |
+    <a href="help.html" id="link-help">ヘルプ</a>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ja';
+
+  const translations = {
+    ja: {
+      title: "🔒 プライバシーポリシー",
+      btnLang: "English",
+      sec1Title: "1. 完全オフライン ＆ クライアントサイド動作",
+      sec1Body: "MethodDka は、全ての数値演算・表示処理をユーザーのブラウザ内（完全クライアントサイド）でのみ実行します。入力された係数データ、計算過程、および算出された解データが外部サーバーに送信または収集されることは一切ありません。",
+      sec2Title: "2. 個人情報の収集・蓄積について",
+      sec2Body: "本アプリケーションは、ユーザーの個人情報、アクセスログ、クッキー（Cookies）、トラッキングデータ等を収集・保存・解析する機能を一切含んでおりません。完全なプライバシー保護環境で安心してご利用いただけます。",
+      sec3Title: "3. 外部ライブラリについて",
+      sec3Body: "本アプリは高精度演算に Decimal.js（CDN経由）を使用しています。スクリプトの初回読み込み時を除き、通信やトラッキングは発生いたしません。",
+      linkHome: "ホーム",
+      linkCalc: "計算アプリ",
+      linkHelp: "ヘルプ"
+    },
+    en: {
+      title: "🔒 Privacy Policy",
+      btnLang: "日本語",
+      sec1Title: "1. Fully Offline & Client-side Execution",
+      sec1Body: "MethodDka executes all numerical computations and UI rendering exclusively within the user's browser (100% client-side). Input coefficients, intermediate calculations, and solved roots are never transmitted to or collected by external servers.",
+      sec2Title: "2. Personal Data Collection & Storage",
+      sec2Body: "This application contains no mechanisms to collect, store, or analyze personal data, access logs, cookies, or tracking metrics. You can use this software with complete privacy peace of mind.",
+      sec3Title: "3. External Libraries",
+      sec3Body: "This application uses Decimal.js (via CDN) for high-precision arithmetic. Apart from fetching the initial library file, no network communications or tracking take place.",
+      linkHome: "Home",
+      linkCalc: "Solver App",
+      linkHelp: "Help"
+    }
+  };
+
+  function toggleLanguage() {
+    currentLang = (currentLang === 'ja') ? 'en' : 'ja';
+    updateUI();
+  }
+
+  function updateUI() {
+    const t = translations[currentLang];
+    document.getElementById('app-title').innerText = t.title;
+    document.getElementById('lang-toggle-btn').innerText = t.btnLang;
+    document.getElementById('sec1-title').innerText = t.sec1Title;
+    document.getElementById('sec1-body').innerText = t.sec1Body;
+    document.getElementById('sec2-title').innerText = t.sec2Title;
+    document.getElementById('sec2-body').innerText = t.sec2Body;
+    document.getElementById('sec3-title').innerText = t.sec3Title;
+    document.getElementById('sec3-body').innerText = t.sec3Body;
+    document.getElementById('link-home').innerText = t.linkHome;
+    document.getElementById('link-calc').innerText = t.linkCalc;
+    document.getElementById('link-help').innerText = t.linkHelp;
+  }
+</script>
+
+</body>
+</html>

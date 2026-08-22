@@ -1,8 +1,4 @@
-const path = require('path');
-
+// Electron環境の安全な初期化
 window.addEventListener('DOMContentLoaded', () => {
-    const decimalPath = path.join(process.resourcesPath, 'decimal.js');
-    const script = document.createElement('script');
-    script.src = decimalPath;
-    document.head.appendChild(script);
+  console.log('MethodDka v2.5.1 Electron environment initialized.');
 });

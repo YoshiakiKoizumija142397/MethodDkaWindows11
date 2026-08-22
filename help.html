@@ -1,128 +1,198 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title id="help-page-title">MethodDka ヘルプ</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.8;
-            padding: 20px;
-            max-width: 900px;
-            margin: auto;
-            background-color: #f7f7f7;
-            color: #333;
-        }
-
-        h1, h2 {
-            color: #2c3e50;
-        }
-
-        .section {
-            background: #fff;
-            padding: 20px 25px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
-        }
-
-        .back-btn {
-            background-color: #6c757d;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-            .back-btn:hover {
-                background-color: #5a6268;
-            }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MethodDka - Help & Test Data / ヘルプ・テストデータ</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --border: #e2e8f0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+    h1 { margin: 0; font-size: 1.6rem; color: var(--primary); }
+    .lang-btn {
+      background: #e2e8f0;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover { background: #cbd5e1; }
+    .section {
+      margin-bottom: 30px;
+    }
+    h2 {
+      font-size: 1.25rem;
+      color: var(--primary);
+      border-left: 4px solid var(--primary);
+      padding-left: 10px;
+      margin-bottom: 15px;
+    }
+    .code-box {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      padding: 15px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      word-break: break-all;
+      white-space: pre-wrap;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .nav-links {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+    .nav-links a { color: var(--primary); text-decoration: none; margin: 0 10px; font-weight: bold; }
+    .nav-links a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
 
-    <button class="back-btn" onclick="goBack()" id="btn-back">← 戻る</button>
+<div class="container">
+  <div class="header-bar">
+    <h1 id="app-title">📖 MethodDka ヘルプ ＆ テストデータ</h1>
+    <button class="lang-btn" onclick="toggleLanguage()" id="lang-toggle-btn">English</button>
+  </div>
 
-    <h1 id="h-title">MethodDka ヘルプ（正式公開バージョン）</h1>
-
-    <div class="section">
-        <h2 id="h-overview-title">概要</h2>
-        <p id="h-overview-desc">
-            MethodDka は、高精度な多項式解法および因数分解を行うための本格的なデスクトップアプリケーションです。
-            Decimal.js を用いた <strong>50桁超高精度演算</strong> と最大200次対応のオートスケーリング機能を搭載しています。
-        </p>
-        <p>
-            <span id="txt-author">作者</span>：小泉嘉章 (Koizumi Yoshiaki)<br>
-            Email: ja142397@s6.dion.ne.jp<br>
-            <strong>Version 1.0.0</strong>
-        </p>
+  <div class="section">
+    <h2 id="sec1-title">💡 使い方・基本操作</h2>
+    <div id="sec1-body">
+      <p>MethodDka は、Durand-Kerner-Aberth (DKA) 法と Decimal.js を用いた 200桁高精度多項式解法 Web アプリケーションです。</p>
+      <ul>
+        <li><strong>次数指定:</strong> 計算したい多項式の最高次数 $n$（最大 200）を入力し「入力欄生成」を押します。</li>
+        <li><strong>一括ペースト:</strong> 係数データを $a_n, a_{n-1}, \dots, a_0$ の降順（カンマまたは空白区切り）でペーストし「一括反映」を押すと、全係数が各入力欄へ一度に設定されます。</li>
+        <li><strong>計算実行:</strong> 「🚀 200桁高精度計算開始！」ボタンを押すと、200桁ダイレクト精度で反復計算を開始し、リアルタイム進捗・経過時間・全解・誤差半径を表示します。</li>
+      </ul>
     </div>
+  </div>
 
-    <div class="section">
-        <h2 id="h-precision-title">精度保証と誤差半径について</h2>
-        <p id="h-precision-desc">
-            本バージョンでは、計算された各根に対して<strong>「誤差半径」</strong>がリアルタイムで算出・表示されます。
-            ホーナー法等を用いた厳密な評価により、求まった解が数学的に正しく高精度に収束しているかを確認することが可能です。
-        </p>
-    </div>
+  <div class="section">
+    <h2 id="sec2-title">🧪 検証用テストデータ：20次ウィルキンソン多項式</h2>
+    <p id="sec2-desc">ウィルキンソン多項式 $W_{20}(x) = \prod_{i=1}^{20} (x - i)$ は、真の解が $1, 2, 3, \dots, 20$ となる有名な超悪条件多項式です。以下の一括テキストをコピーして計算アプリの「一括ペースト」欄へ貼り付けてお試しください。</p>
+    <div class="code-box">1, -210, 20615, -1256850, 53327946, -1672280820, 40171771630, -756111184500, 11310276995381, -135585182899 cliff, 1307535010540395, -10142299865511450, 6303081209929485, -31133364316139064, 120664780378037336, -359997951794760720, 803781182264505177, -1287093124515098880, 1380375975364070400, -875294803676160000, 2432902008176640000</div>
+  </div>
 
-    <div class="section">
-        <h2 id="h-usage-title">使い方</h2>
-        <p id="h-usage-desc">
-            1. 最高次数を指定します。<br>
-            2. 各係数をカンマ区切りなどで入力します。<br>
-            3. 「計算実行」ボタンを押すことで、50桁精度による高精度な根の算出と検証が行われます。
-        </p>
-    </div>
+  <div class="section">
+    <h2 id="sec3-title">🔗 外部テストツール連携</h2>
+    <p id="sec3-body">
+      任意次数の完全精度ウィルキンソン多項式係数を生成する場合は、以下の専用ジェネレーターをご利用いただけます。<br>
+      👉 <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: var(--primary);" id="link-generator">MethodDka用 - 完全精度ウィルキンソン係数ジェネレータ</a>
+    </p>
+  </div>
 
-    <script>
-        const helpTexts = {
-            ja: {
-                pageTitle: "MethodDka ヘルプ",
-                back: "← 戻る",
-                title: "MethodDka ヘルプ（正式公開バージョン）",
-                overviewTitle: "概要",
-                overviewDesc: "MethodDka は、高精度な多項式解法および因数分解を行うための本格的なデスクトップアプリケーションです。Decimal.js を用いた <strong>50桁超高精度演算</strong> と最大200次対応のオートスケーリング機能を搭載しています。",
-                authorLabel: "作者",
-                precisionTitle: "精度保証と誤差半径について",
-                precisionDesc: "本バージョンでは、計算された各根に対して<strong>「誤差半径」</strong>がリアルタイムで算出・表示されます。ホーナー法等を用いた厳密な評価により、求まった解が数学的に正しく高精度に収束しているかを確認することが可能です。",
-                usageTitle: "使い方",
-                usageDesc: "1. 最高次数を指定します。<br>2. 各係数をカンマ区切りなどで入力します。<br>3. 「計算実行」ボタンを押すことで、50桁精度による高精度な根の算出と検証が行われます。"
-            },
-            en: {
-                pageTitle: "MethodDka Help",
-                back: "← Back",
-                title: "MethodDka Help (Official Release)",
-                overviewTitle: "Overview",
-                overviewDesc: "MethodDka is a full-scale desktop application for high-precision polynomial solving and factorization, featuring <strong>over 50-digit high-precision arithmetic</strong> using Decimal.js and auto-scaling up to the 200th degree.",
-                authorLabel: "Author",
-                precisionTitle: "Precision Guarantee & Error Radius",
-                precisionDesc: "In this version, the <strong>'error radius'</strong> is calculated and displayed in real-time for each root. Through rigorous evaluation using Horner's method and others, you can verify that the obtained solutions have converged correctly and with high precision.",
-                usageTitle: "How to Use",
-                usageDesc: "1. Specify the highest degree.<br>2. Enter the coefficients separated by commas.<br>3. Click the 'Execute Calculation' button to calculate and verify the roots with 50-digit precision."
-            }
-        };
+  <div class="nav-links">
+    <a href="index.html" id="link-home">ホーム</a> |
+    <a href="MethodDka.html" id="link-calc">計算アプリ</a> |
+    <a href="privacy.html" id="link-privacy">プライバシーポリシー</a>
+  </div>
+</div>
 
-        let currentLang = localStorage.getItem('methoddka_lang') || 'ja';
-        const t = helpTexts[currentLang];
+<script>
+  let currentLang = 'ja';
 
-        document.getElementById('help-page-title').innerText = t.pageTitle;
-        document.getElementById('btn-back').innerText = t.back;
-        document.getElementById('h-title').innerText = t.title;
-        document.getElementById('h-overview-title').innerText = t.overviewTitle;
-        document.getElementById('h-overview-desc').innerHTML = t.overviewDesc;
-        document.getElementById('txt-author').innerText = t.authorLabel;
-        document.getElementById('h-precision-title').innerText = t.precisionTitle;
-        document.getElementById('h-precision-desc').innerHTML = t.precisionDesc;
-        document.getElementById('h-usage-title').innerText = t.usageTitle;
-        document.getElementById('h-usage-desc').innerHTML = t.usageDesc;
+  const translations = {
+    ja: {
+      title: "📖 MethodDka ヘルプ ＆ テストデータ",
+      btnLang: "English",
+      sec1Title: "💡 使い方・基本操作",
+      sec1Body: `
+        <p>MethodDka は、Durand-Kerner-Aberth (DKA) 法と Decimal.js を用いた 200桁高精度多項式解法 Web アプリケーションです。</p>
+        <ul>
+          <li><strong>次数指定:</strong> 計算したい多項式の最高次数 n（最大 200）を入力し「入力欄生成」を押します。</li>
+          <li><strong>一括ペースト:</strong> 係数データを a_n, a_{n-1}, ..., a_0 の降順（カンマまたは空白区切り）でペーストし「一括反映」を押すと、全係数が各入力欄へ一度に設定されます。</li>
+          <li><strong>計算実行:</strong> 「🚀 200桁高精度計算開始！」ボタンを押すと、200桁ダイレクト精度で反復計算を開始し、リアルタイム進捗・経過時間・全解・誤差半径を表示します。</li>
+        </ul>
+      `,
+      sec2Title: "🧪 検証用テストデータ：20次ウィルキンソン多項式",
+      sec2Desc: "ウィルキンソン多項式 W_20(x) = (x-1)(x-2)...(x-20) は、真の解が 1, 2, 3, ..., 20 となる有名な超悪条件多項式です。以下の一括テキストをコピーして計算アプリの「一括ペースト」欄へ貼り付けてお試しください。",
+      sec3Title: "🔗 外部テストツール連携",
+      sec3Body: `
+        任意次数の完全精度ウィルキンソン多項式係数を生成する場合は、以下の専用ジェネレーターをご利用いただけます。<br>
+        👉 <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: var(--primary);" id="link-generator">MethodDka用 - 完全精度ウィルキンソン係数ジェネレータ</a>
+      `,
+      linkHome: "ホーム",
+      linkCalc: "計算アプリ",
+      linkPrivacy: "プライバシーポリシー"
+    },
+    en: {
+      title: "📖 MethodDka Help & Test Data",
+      btnLang: "日本語",
+      sec1Title: "💡 How to Use & Basic Operations",
+      sec1Body: `
+        <p>MethodDka is a Web application that solves high-degree polynomials with 200-digit precision using the Durand-Kerner-Aberth (DKA) method and Decimal.js.</p>
+        <ul>
+          <li><strong>Degree Specification:</strong> Enter the polynomial degree n (up to 200) and click "Generate Fields".</li>
+          <li><strong>Bulk Paste:</strong> Paste coefficient data in descending order (a_n, a_{n-1}, ..., a_0 separated by commas or spaces) and click "Apply" to populate all fields at once.</li>
+          <li><strong>Execution:</strong> Click "🚀 Start 200-Digit Precision Solver!" to initiate iteration with 200-digit precision, displaying real-time progress, time, all roots, and error radii.</li>
+        </ul>
+      `,
+      sec2Title: "🧪 Benchmark Test Data: Degree 20 Wilkinson Polynomial",
+      sec2Desc: "The Wilkinson polynomial W_20(x) = (x-1)(x-2)...(x-20) is a famous ill-conditioned polynomial with true roots 1, 2, 3, ..., 20. Copy the bulk text below and paste it into the 'Bulk Paste' field in the solver app.",
+      sec3Title: "🔗 External Test Generator Tool",
+      sec3Body: `
+        To generate exact Wilkinson coefficients for any degree, you can use our dedicated generator:<br>
+        👉 <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: var(--primary);" id="link-generator">Exact Precision Wilkinson Coefficient Generator</a>
+      `,
+      linkHome: "Home",
+      linkCalc: "Solver App",
+      linkPrivacy: "Privacy Policy"
+    }
+  };
 
-        function goBack() {
-            window.location.href = 'MethodDka.html';
-        }
-    </script>
+  function toggleLanguage() {
+    currentLang = (currentLang === 'ja') ? 'en' : 'ja';
+    updateUI();
+  }
+
+  function updateUI() {
+    const t = translations[currentLang];
+    document.getElementById('app-title').innerText = t.title;
+    document.getElementById('lang-toggle-btn').innerText = t.btnLang;
+    document.getElementById('sec1-title').innerText = t.sec1Title;
+    document.getElementById('sec1-body').innerHTML = t.sec1Body;
+    document.getElementById('sec2-title').innerText = t.sec2Title;
+    document.getElementById('sec2-desc').innerText = t.sec2Desc;
+    document.getElementById('sec3-title').innerText = t.sec3Title;
+    document.getElementById('sec3-body').innerHTML = t.sec3Body;
+    document.getElementById('link-home').innerText = t.linkHome;
+    document.getElementById('link-calc').innerText = t.linkCalc;
+    document.getElementById('link-privacy').innerText = t.linkPrivacy;
+  }
+</script>
+
 </body>
 </html>

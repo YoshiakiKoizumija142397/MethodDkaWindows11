@@ -1,81 +1,230 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MethodDka - High-Precision Polynomial Solver & Audio DSP App</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 20px; background: #fdfdfd; }
-        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eaeaea; padding-bottom: 20px; margin-bottom: 30px; }
-        h1 { font-size: 1.8rem; margin: 0; color: #111; }
-        .lang-btn { background: #0366d6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .lang-btn:hover { background: #0056b3; }
-        section { margin-bottom: 40px; }
-        .card { background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 8px; padding: 24px; margin-top: 20px; }
-        a { color: #0366d6; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        ul { padding-left: 20px; }
-        code { background: rgba(175,184,193,0.2); padding: 2px 6px; border-radius: 4px; font-family: monospace; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MethodDka - 200-digit Precision Polynomial Solver</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --border: #e2e8f0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .header-bar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+    .lang-btn {
+      background: #e2e8f0;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover { background: #cbd5e1; }
+    .hero-section {
+      text-align: center;
+      padding-bottom: 25px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 30px;
+    }
+    h1 {
+      color: var(--primary);
+      font-size: 2.2rem;
+      margin: 0 0 10px 0;
+    }
+    .version-badge {
+      display: inline-block;
+      background: #e0e7ff;
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+    .btn-container {
+      text-align: center;
+      margin: 35px 0;
+    }
+    .launch-btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      padding: 16px 32px;
+      font-size: 1.25rem;
+      font-weight: bold;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+      transition: all 0.2s;
+    }
+    .launch-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+    .feature-list {
+      background: #f1f5f9;
+      padding: 25px 30px;
+      border-radius: 8px;
+      margin-top: 30px;
+    }
+    .feature-list h3 {
+      margin-top: 0;
+      color: var(--text);
+    }
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px 25px;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .nav-links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+    footer.footer-copyright {
+      margin-top: 25px;
+      padding-top: 15px;
+      border-top: 1px dashed var(--border);
+      text-align: center;
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <h1>MethodDka</h1>
-        <button class="lang-btn" onclick="toggleLanguage()">English / 日本語</button>
-    </header>
+<div class="container">
+  <div class="header-bar">
+    <button class="lang-btn" onclick="toggleLanguage()" id="lang-toggle-btn">English</button>
+  </div>
 
-    <main>
-        <!-- 概要セクション -->
-        <section>
-            <h2 id="sec-title" data-lang-ja="200次対応 & 50桁高精度多項式解法・因数分解 Web アプリ" data-lang-en="200th-Degree & 50-Digit High-Precision Polynomial Solver">200次対応 & 50桁高精度多項式解法・因数分解 Web アプリ</h2>
-            <p id="sec-desc" data-lang-ja="HTMLとJavaScriptだけで動作する超高精度な多項式解法アプリです。DKA法とDecimal.jsによる50桁高精度演算、最大200次対応オートスケーリングを搭載しています。"
-               data-lang-en="A lightweight, ultra-high-precision web application for solving polynomials, powered by the DKA method and Decimal.js for 50-digit precision up to degree 200.">
-               HTMLとJavaScriptだけで動作する超高精度な多項式解法アプリです。DKA法とDecimal.jsによる50桁高精度演算、最大200次対応オートスケーリングを搭載しています。
-            </p>
-            <p>
-                👉 <a href="MethodDka.html" data-lang-ja="Webアプリ本体 (MethodDka.html) を開く" data-lang-en="Open Web App (MethodDka.html)">Webアプリ本体 (MethodDka.html) を開く</a> | 
-                👉 <a href="https://github.com/YoshiakiKoizumija142397/MethodDka" target="_blank" data-lang-ja="GitHubリポジトリ" data-lang-en="GitHub Repository">GitHubリポジトリ</a>
-            </p>
-        </section>
+  <div class="hero-section">
+    <h1 id="app-title">MethodDka</h1>
+    <span class="version-badge" id="version-text">v3.2.0 (200桁極限高精度版)</span>
+    <p style="font-size: 1.1rem; color: #64748b; margin-top: 15px;" id="app-desc">
+      DKA法 ＆ Decimal.js による超高精度多項式解法・因数分解 Web アプリケーション
+    </p>
+  </div>
 
-        <!-- Audio DSP 応用例セクション -->
-        <section class="card">
-            <h2 data-lang-ja="🎧 応用例: SONY SS-CS5 マルチアンプ化デジタルチャンネルデバイダー" data-lang-en="🎧 Application: Digital Crossover for SONY SS-CS5 Multi-Amp System">
-                🎧 応用例: SONY SS-CS5 マルチアンプ化デジタルチャンネルデバイダー
-            </h2>
-            <p><strong>【New Application: High-Resolution Audio Digital Crossover & Minimum-Phase FIR Filter Design】</strong></p>
-            <p data-lang-ja="3WAYスピーカー「SONY SS-CS5」の内蔵ネットワーク（コンデンサやコイルなどの受動素子による音質劣化・損失）を完全に排除するため、7.1ch HDMI接続ハイレゾアンプの6ch（中古保証付き）を活用したマルチアンプシステムを構築。デジタルプリアンプとパワーアンプの間に挿入する「ミニマムフェーズFIRフィルター係数」のオフライン設計に、本ツールの Durand-Kerner-Aberth法（MethodDka）と decimal.js による50桁高精度演算を応用します。"
-               data-lang-en="To completely eliminate sound quality degradation from passive components in the built-in network of the 3-way speaker SONY SS-CS5, this builds a multi-amp system utilizing 6 channels of a 7.1ch HDMI high-res amp. It applies Durand-Kerner-Aberth method and 50-digit high-precision calculation to design 'minimum-phase FIR filter coefficients' inserted between the digital preamp and power amps.">
-                3WAYスピーカー「SONY SS-CS5」の内蔵ネットワーク（コンデンサやコイルなどの受動素子による音質劣化・損失）を完全に排除するため、7.1ch HDMI接続ハイレゾアンプの6ch（中古保証付き）を活用したマルチアンプシステムを構築。デジタルプリアンプとパワーアンプの間に挿入する「ミニマムフェーズFIRフィルター係数」のオフライン設計に、本ツールの Durand-Kerner-Aberth法（MethodDka）と decimal.js による50桁高精度演算を応用します。
-            </p>
+  <div class="btn-container">
+    <a href="MethodDka.html" class="launch-btn" id="btn-launch">🚀 MethodDka アプリを起動する</a>
+  </div>
 
-            <h3 data-lang-ja="開発設計の前提条件とスペック・ユースケース" data-lang-en="Development Specs & Prerequisites">開発設計の前提条件とスペック・ユースケース</h3>
-            <ul>
-                <li><strong data-lang-ja="OS環境:" data-lang-en="OS Environment:">OS環境:</strong> Windows 11 Home (25H2)</li>
-                <li><strong data-lang-ja="音源・サンプリング周波数:" data-lang-en="Audio Source & Sampling Rate:">音源・サンプリング周波数:</strong> Amazon Music Unlimited (ハイレゾ配信 24bit / 96kHz)</li>
-                <li><strong data-lang-ja="ターゲットスピーカー:" data-lang-en="Target Speaker:">ターゲットスピーカー:</strong> SONY SS-CS5 (3WAY・内蔵ネットワーク完全バイパス)</li>
-                <li><strong data-lang-ja="ハードウェア構成:" data-lang-en="Hardware Setup:">ハードウェア構成:</strong> 7.1ch HDMIアンプの6ch流用マルチアンプ駆動（デジタルプリアンプ ～ チャンネルデバイダー ～ パワーアンプ）</li>
-                <li>
-                    <strong data-lang-ja="クロスオーバー周波数 (3-WAY):" data-lang-en="Crossover Frequencies (3-WAY):">クロスオーバー周波数 (3-WAY):</strong>
-                    <ul>
-                        <li data-lang-ja="Low / Mid (2.5kHz): 200タップによる急峻な減衰と、位相のブレない自然な繋がり。" data-lang-en="Low / Mid (2.5kHz): Steep attenuation by 200 taps and natural phase alignment.">Low / Mid (2.5kHz): 200タップによる急峻な減衰と、位相のブレない自然な繋がり。</li>
-                        <li data-lang-ja="Mid / High (17kHz): スーパートゥイーターを正確に駆動する高精度フィルタリング。" data-lang-en="Mid / High (17kHz): High-precision filtering accurately driving super tweeters.">Mid / High (17kHz): スーパートゥイーターを正確に駆動する高精度フィルタリング。</li>
-                    </ul>
-                </li>
-                <li><strong data-lang-ja="最大のメリット:" data-lang-en="Key Benefit:">最大のメリット:</strong> <span data-lang-ja="パッシブネットワークを排除したユニット直結駆動と、プレエコー（プリリンギング）を排除する「ミニマムフェーズ化」を、50桁の数学的精度でノーエラーで実行。" data-lang-en="Executes network-free direct unit driving and 'minimum-phase conversion' to eliminate pre-echo with 50-digit mathematical precision.">パッシブネットワークを排除したユニット直結駆動と、プレエコー（プリリンギング）を排除する「ミニマムフェーズ化」を、50桁の数学的精度でノーエラーで実行。</span></li>
-            </ul>
-        </section>
-    </main>
+  <div class="feature-list">
+    <h3 id="feature-title">✨ 主な特徴 (v3.2.0)</h3>
+    <ul id="feature-items">
+      <li><strong>ダイレクト 200 桁演算:</strong> 最初から200桁の極限精度（Decimal.js）で演算を行い、悪条件多項式も確実に収束。</li>
+      <li><strong>リアルタイム進行UI ＆ 時間計測:</strong> 反復計算のループ進捗率や経過時間・残り時間をリアルタイム表示。</li>
+      <li><strong>非破壊モード切替トグル:</strong> 高精度解法表示（100桁出力）と因数分解表示（整数化）をワンクリック切り替え。</li>
+      <li><strong>最高 200 次対応:</strong> オートスケーリング機構によりオーバーフローを防止。</li>
+      <li><strong>完全オフライン動作:</strong> ブラウザ単体および Windows 11 ネイティブアプリ（MSI / APPX）で爆速動作。</li>
+    </ul>
+  </div>
 
-    <script>
-        let isJa = true;
-        function toggleLanguage() {
-            isJa = !isJa;
-            document.querySelectorAll('[data-lang-ja]').forEach(el => {
-                el.textContent = el.getAttribute(isJa ? 'data-lang-ja' : 'data-lang-en');
-            });
-        }
-    </script>
+  <div class="nav-links">
+    <a href="MethodDka.html" id="link-calc">🧪 計算アプリ</a>
+    <a href="help.html" id="link-help">📖 ヘルプ・テストデータ</a>
+    <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" id="link-gen">📊 ウィルキンソン係数ジェネレーター</a>
+    <a href="privacy.html" id="link-privacy">🔒 プライバシーポリシー</a>
+  </div>
+
+  <footer class="footer-copyright">
+    <div><strong>MethodDka v3.2.0</strong> — Created by <strong>Yoshiaki Koizumi (小泉嘉章)</strong></div>
+    <div>Copyright &copy; 2026 Yoshiaki Koizumi. Released under the <strong>MIT License</strong>.</div>
+  </footer>
+</div>
+
+<script>
+  let currentLang = 'ja';
+
+  const translations = {
+    ja: {
+      btnLang: "English",
+      versionText: "v3.2.0 (200桁極限高精度版)",
+      appDesc: "DKA法 ＆ Decimal.js による超高精度多項式解法・因数分解 Web アプリケーション",
+      btnLaunch: "🚀 MethodDka アプリを起動する",
+      featureTitle: "✨ 主な特徴 (v3.2.0)",
+      featureItems: `
+        <li><strong>ダイレクト 200 桁演算:</strong> 最初から200桁の極限精度（Decimal.js）で演算を行い、悪条件多項式も確実に収束。</li>
+        <li><strong>リアルタイム進行UI ＆ 時間計測:</strong> 反復計算のループ進捗率や経過時間・残り時間をリアルタイム表示。</li>
+        <li><strong>非破壊モード切替トグル:</strong> 高精度解法表示（100桁出力）と因数分解表示（整数化）をワンクリック切り替え。</li>
+        <li><strong>最高 200 次対応:</strong> オートスケーリング機構によりオーバーフローを防止。</li>
+        <li><strong>完全オフライン動作:</strong> ブラウザ単体および Windows 11 ネイティブアプリ（MSI / APPX）で爆速動作。</li>
+      `,
+      linkCalc: "🧪 計算アプリ",
+      linkHelp: "📖 ヘルプ・テストデータ",
+      linkGen: "📊 ウィルキンソン係数ジェネレーター",
+      linkPrivacy: "🔒 プライバシーポリシー"
+    },
+    en: {
+      btnLang: "日本語",
+      versionText: "v3.2.0 (200-Digit Extreme Precision)",
+      appDesc: "High-Precision Polynomial Solver & Factorization Web App powered by DKA Method & Decimal.js",
+      btnLaunch: "🚀 Launch MethodDka App",
+      featureTitle: "✨ Key Features (v3.2.0)",
+      featureItems: `
+        <li><strong>Direct 200-Digit Precision:</strong> 200-digit fixed precision (Decimal.js) ensuring convergence for ill-conditioned polynomials.</li>
+        <li><strong>Real-Time Execution Tracking:</strong> Displays iteration loops, progress %, elapsed time, and remaining time.</li>
+        <li><strong>Non-Destructive Mode Toggle:</strong> Instant switch between High Precision Root Mode and Factored Form Mode.</li>
+        <li><strong>Degree Up To 200:</strong> Integrated auto-scaling mechanism preventing numerical overflow/underflow.</li>
+        <li><strong>100% Offline Execution:</strong> Runs completely client-side in browsers and Windows 11 native apps.</li>
+      `,
+      linkCalc: "🧪 Solver App",
+      linkHelp: "📖 Help & Benchmark",
+      linkGen: "📊 Wilkinson Coeff Generator",
+      linkPrivacy: "🔒 Privacy Policy"
+    }
+  };
+
+  function toggleLanguage() {
+    currentLang = (currentLang === 'ja') ? 'en' : 'ja';
+    updateUI();
+  }
+
+  function updateUI() {
+    const t = translations[currentLang];
+    document.getElementById('lang-toggle-btn').innerText = t.btnLang;
+    document.getElementById('version-text').innerText = t.versionText;
+    document.getElementById('app-desc').innerText = t.appDesc;
+    document.getElementById('btn-launch').innerText = t.btnLaunch;
+    document.getElementById('feature-title').innerText = t.featureTitle;
+    document.getElementById('feature-items').innerHTML = t.featureItems;
+    document.getElementById('link-calc').innerText = t.linkCalc;
+    document.getElementById('link-help').innerText = t.linkHelp;
+    document.getElementById('link-gen').innerText = t.linkGen;
+    document.getElementById('link-privacy').innerText = t.linkPrivacy;
+  }
+</script>
+
 </body>
 </html>

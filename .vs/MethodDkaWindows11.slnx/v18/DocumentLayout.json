@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\ja142\\source\\repos\\YoshiakiKoizumija142397\\MethodDkaWindows11\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ja142\\source\\repos\\YoshiakiKoizumija142397\\MethodDkaWindows11\\icon.ico||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:icon.ico||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ja142\\source\\repos\\YoshiakiKoizumija142397\\MethodDkaWindows11\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
@@ -35,6 +39,18 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "icon.ico - Icon [256x256, 32 \u30D3\u30C3\u30C8, BMP]",
+              "DocumentMoniker": "C:\\Users\\ja142\\source\\repos\\YoshiakiKoizumija142397\\MethodDkaWindows11\\icon.ico",
+              "RelativeDocumentMoniker": "icon.ico",
+              "ToolTip": "C:\\Users\\ja142\\source\\repos\\YoshiakiKoizumija142397\\MethodDkaWindows11\\icon.ico - Icon [256x256, 32 \u30D3\u30C3\u30C8, BMP]",
+              "RelativeToolTip": "icon.ico - Icon [256x256, 32 \u30D3\u30C3\u30C8, BMP]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001525|",
+              "WhenOpened": "2026-08-11T08:20:51.44Z",
+              "EditorCaption": " - Icon [256x256, 32 \u30D3\u30C3\u30C8, BMP]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "package.json",
               "DocumentMoniker": "C:\\Users\\ja142\\source\\repos\\YoshiakiKoizumija142397\\MethodDkaWindows11\\package.json",
               "RelativeDocumentMoniker": "package.json",
@@ -47,7 +63,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "package-lock.json",
               "DocumentMoniker": "C:\\Users\\ja142\\source\\repos\\YoshiakiKoizumija142397\\MethodDkaWindows11\\package-lock.json",
               "RelativeDocumentMoniker": "package-lock.json",
@@ -55,12 +71,11 @@
               "RelativeToolTip": "package-lock.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-08-05T13:40:02.866Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-05T13:40:02.866Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "help.html",
               "DocumentMoniker": "C:\\Users\\ja142\\source\\repos\\YoshiakiKoizumija142397\\MethodDkaWindows11\\help.html",
               "RelativeDocumentMoniker": "help.html",
@@ -68,12 +83,11 @@
               "RelativeToolTip": "help.html",
               "ViewState": "AgIAAGEAAAAAAAAAAAAUwH8AAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2026-08-05T13:12:38.064Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-05T13:12:38.064Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "MethodDka.html",
               "DocumentMoniker": "C:\\Users\\ja142\\source\\repos\\YoshiakiKoizumija142397\\MethodDkaWindows11\\MethodDka.html",
               "RelativeDocumentMoniker": "MethodDka.html",
@@ -81,12 +95,11 @@
               "RelativeToolTip": "MethodDka.html",
               "ViewState": "AgIAAJsAAAAAAAAAAAAUwLkAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2026-08-05T13:12:00.656Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-05T13:12:00.656Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "index.html",
               "DocumentMoniker": "C:\\Users\\ja142\\source\\repos\\YoshiakiKoizumija142397\\MethodDkaWindows11\\index.html",
               "RelativeDocumentMoniker": "index.html",
@@ -94,8 +107,7 @@
               "RelativeToolTip": "index.html",
               "ViewState": "AgIAAEMAAAAAAAAAAAAUwGEAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2026-08-05T13:11:15.679Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-05T13:11:15.679Z"
             }
           ]
         }
