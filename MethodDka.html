@@ -1,670 +1,374 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MethodDka (200桁極限高精度版) / Multilingual Polynomial Solver</title>
-  <!-- Decimal.js CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.4.3/decimal.min.js"></script>
-  <style>
-    :root {
-      --primary: #2563eb;
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #1e293b;
-      --border: #e2e8f0;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      margin: 0;
-      padding: 20px;
-      line-height: 1.6;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: var(--card-bg);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    }
-    .header-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 15px;
-      margin-bottom: 25px;
-    }
-    h1 { margin: 0; font-size: 1.6rem; color: var(--primary); }
-    .lang-btn {
-      background: #e2e8f0;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.2s;
-    }
-    .lang-btn:hover { background: #cbd5e1; }
-    .info-box {
-      margin-bottom: 20px;
-      padding: 12px 16px;
-      background-color: #f0f4f9;
-      border-left: 4px solid var(--primary);
-      border-radius: 4px;
-      font-size: 0.9em;
-    }
-    .form-group { margin-bottom: 20px; }
-    label { display: block; font-weight: bold; margin-bottom: 8px; }
-    input[type="number"], textarea, input[type="text"] {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      box-sizing: border-box;
-      font-family: monospace;
-    }
-    .mode-switch-box {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      background: #f1f5f9;
-      padding: 12px 18px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      border: 1px solid var(--border);
-    }
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 50px;
-      height: 26px;
-    }
-    .switch input { opacity: 0; width: 0; height: 0; }
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: #cbd5e1;
-      transition: .4s;
-      border-radius: 26px;
-    }
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 18px;
-      width: 18px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: .4s;
-      border-radius: 50%;
-    }
-    input:checked + .slider { background-color: var(--primary); }
-    input:checked + .slider:before { transform: translateX(24px); }
-
-    button.btn-primary {
-      width: 100%;
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    button.btn-primary:hover { opacity: 0.9; }
-    .status-panel {
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      padding: 15px;
-      border-radius: 8px;
-      margin-top: 20px;
-      font-family: monospace;
-    }
-    .progress-bar-bg {
-      background: #e2e8f0;
-      height: 12px;
-      border-radius: 6px;
-      overflow: hidden;
-      margin-top: 8px;
-    }
-    .progress-bar-fill {
-      background: #22c55e;
-      height: 100%;
-      width: 0%;
-      transition: width 0.1s;
-    }
-    .coeff-list {
-      max-height: 200px;
-      overflow-y: auto;
-      border: 1px solid var(--border);
-      padding: 10px;
-      margin-bottom: 15px;
-      background: #fafafa;
-      border-radius: 6px;
-    }
-    .result-card {
-      background: #f1f5f9;
-      border-left: 4px solid var(--primary);
-      padding: 12px 16px;
-      margin-top: 10px;
-      border-radius: 4px;
-      font-family: monospace;
-      font-size: 0.85rem;
-      word-break: break-all;
-    }
-    .result-card.converged {
-      border-left: 5px solid #22c55e;
-      background: #f1f8e9;
-    }
-    .factor-box {
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      padding: 15px;
-      border-radius: 6px;
-      font-family: monospace;
-      font-size: 1rem;
-      line-height: 1.8;
-      word-break: break-all;
-      white-space: pre-wrap;
-      max-height: 350px;
-      overflow-y: auto;
-    }
-    .nav-links {
-      margin-top: 30px;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-    .nav-links a { color: var(--primary); text-decoration: none; margin: 0 10px; font-weight: bold; }
-    .nav-links a:hover { text-decoration: underline; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">MethodDka (200桁極限高精度版)</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.4.3/decimal.min.js"></script>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 15px; background-color: #f8f9fa; color: #333; }
+.header-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: #fff; padding: 10px 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.nav-links { display: flex; gap: 15px; }
+.nav-links a { color: #1a73e8; text-decoration: none; font-weight: bold; }
+.lang-btn { background-color: #f1f3f4; color: #3c4043; border: 1px solid #dadce0; padding: 6px 12px; font-size: 0.85rem; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 0; }
+.lang-btn:hover { background-color: #e8eaed; }
+.container { max-width: 900px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+h1 { font-size: 1.5rem; color: #202124; margin-top: 0; border-bottom: 2px solid #1a73e8; padding-bottom: 8px; }
+.input-group { margin-bottom: 15px; }
+.input-row { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin-bottom: 15px; }
+label { font-weight: bold; margin-bottom: 5px; }
+input[type="text"], input[type="number"], select, textarea { padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: monospace; }
+textarea { width: 100%; }
+button { background-color: #1a73e8; color: white; border: none; padding: 10px 18px; font-size: 1rem; border-radius: 4px; cursor: pointer; font-weight: bold; margin-right: 10px; margin-top: 10px; }
+button:hover { background-color: #1557b0; }
+button.auto-btn { background-color: #1a73e8; width: 100%; padding: 12px; font-size: 1.1rem; margin-bottom: 15px; }
+.info-box { margin: 12px 0; padding: 10px 14px; background-color: #f0f4f9; border-left: 4px solid #1a73e8; border-radius: 4px; font-size: 0.9em; }
+.status-panel { background-color: #e8f0fe; border: 1px solid #aecbfa; padding: 12px; border-radius: 6px; margin-bottom: 15px; font-family: monospace; }
+.progress-bar-bg { background-color: #dadce0; height: 12px; border-radius: 6px; overflow: hidden; margin-top: 6px; }
+.progress-bar-fill { background-color: #34a853; height: 100%; width: 0%; transition: width 0.1s; }
+.coeff-list { max-height: 200px; overflow-y: auto; border: 1px solid #e0e0e0; padding: 10px; margin-bottom: 15px; background: #fafafa; }
+.result-box { margin-top: 20px; border-top: 2px solid #eee; padding-top: 15px; }
+.root-card { background: #f8f9fa; border: 1px solid #e0e0e0; padding: 10px; margin-bottom: 8px; border-radius: 4px; font-family: monospace; font-size: 0.85rem; word-break: break-all; }
+.root-card.err-ok { border-left: 5px solid #34a853; background: #f1f8e9; }
+.root-card.err-warn { border-left: 5px solid #ea4335; background: #fce8e6; }
+</style>
 </head>
 <body>
 
+<div class="header-nav">
+    <div class="nav-links">
+        <a href="index.html" id="navHome">🏠 トップ</a>
+        <a href="MethodDka.html" id="navCalc">🧮 計算</a>
+        <a href="help.html" target="_blank" id="navHelp">📖 ヘルプ</a>
+        <a href="privacy.html" target="_blank" id="navPrivacy">🔒 プライバシー</a>
+    </div>
+    <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">English</button>
+</div>
+
 <div class="container">
-  <div class="header-bar">
-    <h1 id="app-title">MethodDka (200桁極限高精度版)</h1>
-    <button class="lang-btn" onclick="toggleLanguage()" id="lang-toggle-btn">English</button>
-  </div>
+    <h1 id="mainTitle">MethodDka (200桁極限高精度版)</h1>
 
-  <div class="info-box" id="info-summary">
-    <strong>概要:</strong> DKA法と Decimal.js による <strong>200桁固定の超高精度演算</strong> で多項式を解きます。<br>
-    ⚡ <strong>ダイレクト200桁演算:</strong> 各解の誤差半径・反復回数・オートスケーリング因子を表示します。
-  </div>
-
-  <!-- モード切替トグルスイッチ -->
-  <div class="mode-switch-box">
-    <label class="switch">
-      <input type="checkbox" id="mode-toggle" onchange="renderResults()">
-      <span class="slider"></span>
-    </label>
-    <div>
-      <strong id="mode-label-title">モード: 高精度解法表示</strong><br>
-      <span id="mode-label-desc" style="font-size: 0.85em; color: #64748b;">各解の詳細数値・誤差半径・個別反復回数を出力します</span>
+    <div class="info-box" id="infoOverview">
+        <strong>概要:</strong> DKA法と Decimal.js による <strong>200桁固定の超高精度演算</strong> で多項式を解きます。
     </div>
-  </div>
 
-  <div class="form-group">
-    <label id="lbl-degree">1. 最高次数 n (最大 200):</label>
-    <div style="display: flex; gap: 10px;">
-      <input type="number" id="deg-input" value="20" min="1" max="200">
-      <button onclick="generateInputs()" style="padding: 0 20px; cursor: pointer;" id="btn-gen">入力欄生成</button>
+    <div class="input-row">
+        <div>
+            <label for="degree" id="labelDegree">最高次数 (n ≤ 200):</label><br>
+            <input type="number" id="degree" value="200" min="1" max="200" style="width: 100px;">
+            <button onclick="generateInputs()" id="btnGen">入力欄生成</button>
+        </div>
+        <div>
+            <label for="maxIterInput" id="labelMaxIter">最大反復回数 (セーフティロック):</label><br>
+            <input type="number" id="maxIterInput" value="1000" min="10" max="50000" step="10" style="width: 120px;">
+        </div>
     </div>
-  </div>
 
-  <div class="info-box">
-    💡 <span id="info-gen-text">任意次数のテスト用係数は</span>
-    <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: var(--primary); text-decoration: underline;" id="link-generator">
-      ウィルキンソン係数ジェネレーター (Web版)
-    </a>
-    <span id="info-gen-text-2">で作成＆ペースト可能です。</span>
-  </div>
-
-  <div class="form-group">
-    <label id="lbl-bulk">2. 係数の一括ペースト (降順 a_n ... a_0):</label>
-    <textarea id="bulk-input" rows="3" placeholder="例: 1, -210, 20615, -1256850 ..."></textarea>
-    <button onclick="applyBulk()" style="margin-top: 5px; padding: 6px 12px; cursor: pointer;" id="btn-apply">一括反映</button>
-  </div>
-
-  <div id="coeff-container" class="form-group"></div>
-
-  <button class="btn-primary" onclick="startCalculation()" id="btn-start">🚀 200桁高精度計算開始！</button>
-
-  <div id="status-panel" class="status-panel" style="display:none;">
-    <div id="status-phase" style="font-weight: bold; color: var(--primary);">モード: 200桁高精度反復計算中</div>
-    <div id="status-loop">Loop: 0 / 20000</div>
-    <div id="status-time">経過時間: 00:00:00 | 残り推定: 計算中...</div>
-    <div id="status-convergence">進捗率: 0.0%</div>
-    <div class="progress-bar-bg">
-      <div id="progress-fill" class="progress-bar-fill"></div>
+    <div class="info-box" id="infoGenerator">
+        💡 任意次数のテスト用係数は
+        <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: #1a73e8; text-decoration: underline;" id="genLink">
+            ウィルキンソン係数ジェネレーター (Web版)
+        </a>
+        で作成＆ペースト可能です。
     </div>
-  </div>
 
-  <h3 style="margin-top: 30px;" id="lbl-results">計算結果:</h3>
-  <div id="results-container"></div>
+    <div class="input-group">
+        <label for="bulkCoeffs" id="labelBulk">📋 係数一括ペースト (カンマ/空白区切り):</label>
+        <textarea id="bulkCoeffs" rows="3" placeholder="例: 1, -210, 20615, ..."></textarea>
+        <button onclick="parseBulkCoeffs()" id="btnBulk">一括反映</button>
+    </div>
 
-  <div class="nav-links">
-    <a href="index.html" id="link-home">ホーム</a> |
-    <a href="help.html" id="link-help">ヘルプ</a> |
-    <a href="privacy.html" id="link-privacy">プライバシーポリシー</a>
-  </div>
+    <label id="labelCoeffList">各項の係数入力 (a_n ... a_0):</label>
+    <div id="coeffContainer" class="coeff-list"></div>
+
+    <button class="auto-btn" onclick="startCalculationAsync()" id="btnStart">🚀 200桁高精度計算開始！</button>
+
+    <div id="statusPanel" class="status-panel" style="display: none;">
+        <div id="statusPhase" style="font-weight: bold; color: #1a73e8;">モード: 200桁高精度反復計算中</div>
+        <div id="statusLoop">Loop: 0 / 1000</div>
+        <div id="statusTime">経過時間: 00:00:00</div>
+        <div id="statusConvergence">進捗率: 0.0%</div>
+        <div class="progress-bar-bg">
+            <div id="progressBar" class="progress-bar-fill"></div>
+        </div>
+    </div>
+
+    <div class="result-box">
+        <h3 id="resultHeader">計算結果:</h3>
+        <div id="resultOutput">ここに解が表示されます。</div>
+    </div>
 </div>
 
 <script>
-  let currentLang = 'ja';
+let currentLang = 'ja';
 
-  // 計算結果データ保持用のグローバル変数
-  let calculatedCache = null;
-
-  const translations = {
+const translations = {
     ja: {
-      title: "MethodDka (200桁極限高精度版)",
-      btnLang: "English",
-      infoSummary: "<strong>概要:</strong> DKA法と Decimal.js による <strong>200桁固定の超高精度演算</strong> で多項式を解きます。<br>⚡ <strong>ダイレクト200桁演算:</strong> 各解の誤差半径・反復回数・オートスケーリング因子を表示します。",
-      lblDegree: "1. 最高次数 n (最大 200):",
-      btnGen: "入力欄生成",
-      infoGenText: "任意次数のテスト用係数は",
-      linkGen: "ウィルキンソン係数ジェネレーター (Web版)",
-      infoGenText2: "で作成＆ペースト可能です。",
-      lblBulk: "2. 係数の一括ペースト (降順 a_n ... a_0):",
-      btnApply: "一括反映",
-      lblCoeffsHeader: "各項の係数入力 (a_n ... a_0):",
-      btnStart: "🚀 200桁高精度計算開始！",
-      lblResults: "計算結果:",
-      linkHome: "ホーム",
-      linkHelp: "ヘルプ",
-      linkPrivacy: "プライバシーポリシー",
-      modeRunning: "モード: 200桁高精度反復計算中",
-      calcStart: "200桁高精度計算を開始します...",
-      calcDone: "✅ 200桁高精度計算完了！",
-      totalTime: "総計算時間",
-      totalLoops: "総反復回数（個別反復合計）",
-      scaleFactor: "オートスケーリング因子",
-      worstRadius: "最悪誤差半径",
-      rootLabel: "解",
-      convergedTag: "⭕ [完全収束]",
-      realPart: "実部",
-      imagPart: "虚部",
-      errorRadius: "誤差半径",
-      iterations: "反復",
-      elapsed: "経過時間",
-      remaining: "残り推定",
-      progress: "進捗率",
-      convergedCount: "収束数",
-      modeTitleSolve: "モード: 高精度解法表示",
-      modeDescSolve: "各解の詳細数値・誤差半径・個別反復回数を出力します",
-      modeTitleFactor: "モード: 因数分解専用表示",
-      modeDescFactor: "解を四捨五入（整数化）し、因数分解形式 P(x) = a_n Π(x - z_i) を出力します",
-      factorHeader: "🧩 多項式の因数分解形式:"
+        pageTitle: "MethodDka (200桁極限高精度版)",
+        navHome: "🏠 トップ",
+        navCalc: "🧮 計算",
+        navHelp: "📖 ヘルプ",
+        navPrivacy: "🔒 プライバシー",
+        langBtn: "English",
+        mainTitle: "MethodDka (200桁極限高精度版)",
+        infoOverview: "<strong>概要:</strong> DKA法と Decimal.js による <strong>200桁固定の超高精度演算</strong> で多項式を解きます。",
+        labelDegree: "最高次数 (n ≤ 200):",
+        labelMaxIter: "最大反復回数 (セーフティロック):",
+        btnGen: "入力欄生成",
+        infoGenerator: '💡 任意次数のテスト用係数は <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: #1a73e8; text-decoration: underline;">ウィルキンソン係数ジェネレーター (Web版)</a> で作成＆ペースト可能です。',
+        labelBulk: "📋 係数一括ペースト (カンマ/空白区切り):",
+        btnBulk: "一括反映",
+        labelCoeffList: "各項の係数入力 (a_n ... a_0):",
+        btnStart: "🚀 200桁高精度計算開始！",
+        statusPhase: "モード: 200桁高精度反復計算中",
+        statusTimePrefix: "経過時間: ",
+        statusProgressPrefix: "進捗率: ",
+        resultHeader: "計算結果:",
+        resultPlaceholder: "ここに解が表示されます。",
+        calculatingText: "計算を実行中...",
+        rootText: "解",
+        iterText: "反復",
+        errRadiusText: "誤差半径",
+        realPartText: "実部",
+        imagPartText: "虚部"
     },
     en: {
-      title: "MethodDka (200-Digit Extreme Precision)",
-      btnLang: "日本語",
-      infoSummary: "<strong>Summary:</strong> Solves polynomials using DKA method with Decimal.js at <strong>200-digit fixed precision</strong>.<br>⚡ <strong>Direct 200-digit Mode:</strong> Displays error radius, iterations, and scaling factors for each root.",
-      lblDegree: "1. Degree n (Max 200):",
-      btnGen: "Generate Fields",
-      infoGenText: "Test coefficients for any degree can be created with ",
-      linkGen: "Wilkinson Coefficient Generator (Web)",
-      infoGenText2: ".",
-      lblBulk: "2. Bulk Paste Coefficients (Descending a_n ... a_0):",
-      btnApply: "Apply",
-      lblCoeffsHeader: "Input Coefficients for Each Term (a_n ... a_0):",
-      btnStart: "🚀 Start 200-Digit Precision Solver!",
-      lblResults: "Results:",
-      linkHome: "Home",
-      linkHelp: "Help",
-      linkPrivacy: "Privacy Policy",
-      modeRunning: "Mode: 200-digit precision iteration in progress",
-      calcStart: "Starting 200-digit precision calculation...",
-      calcDone: "✅ 200-Digit Precision Calculation Completed!",
-      totalTime: "Total Execution Time",
-      totalLoops: "Total Iterations (Sum of Per-root)",
-      scaleFactor: "Auto-scaling Factor",
-      worstRadius: "Worst Error Radius",
-      rootLabel: "Root",
-      convergedTag: "⭕ [Fully Converged]",
-      realPart: "Real Part",
-      imagPart: "Imag Part",
-      errorRadius: "Error Radius",
-      iterations: "Iterations",
-      elapsed: "Elapsed Time",
-      remaining: "Est. Remaining",
-      progress: "Progress",
-      convergedCount: "Converged Roots",
-      modeTitleSolve: "Mode: High Precision Solver",
-      modeDescSolve: "Displays detailed root values, error radii, and individual iterations.",
-      modeTitleFactor: "Mode: Factorization Only",
-      modeDescFactor: "Rounds roots to nearest integers and displays factored form P(x) = a_n Π(x - z_i).",
-      factorHeader: "🧩 Polynomial Factorization Form:"
+        pageTitle: "MethodDka (200-Digit High Precision)",
+        navHome: "🏠 Home",
+        navCalc: "🧮 Solver",
+        navHelp: "📖 Help",
+        navPrivacy: "🔒 Privacy",
+        langBtn: "日本語",
+        mainTitle: "MethodDka (200-Digit Precision Solver)",
+        infoOverview: "<strong>Overview:</strong> Solves polynomial roots with <strong>200-digit precision</strong> using DKA method and Decimal.js.",
+        labelDegree: "Degree (n ≤ 200):",
+        labelMaxIter: "Max Iterations (Safety Lock):",
+        btnGen: "Generate Fields",
+        infoGenerator: '💡 Test coefficients for any degree can be created with <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: #1a73e8; text-decoration: underline;">Wilkinson Coeff Generator</a>.',
+        labelBulk: "📋 Bulk Coeffs Paste (Comma/Space separated):",
+        btnBulk: "Apply Bulk",
+        labelCoeffList: "Coefficients Input (a_n ... a_0):",
+        btnStart: "🚀 Start 200-Digit Calculation!",
+        statusPhase: "Mode: 200-Digit Precision Iteration in Progress",
+        statusTimePrefix: "Elapsed Time: ",
+        statusProgressPrefix: "Progress: ",
+        resultHeader: "Calculation Results:",
+        resultPlaceholder: "Roots will be displayed here.",
+        calculatingText: "Calculating roots...",
+        rootText: "Root",
+        iterText: "Iter",
+        errRadiusText: "Error Radius",
+        realPartText: "Real",
+        imagPartText: "Imag"
     }
-  };
+};
 
-  function toggleLanguage() {
+function toggleLanguage() {
     currentLang = (currentLang === 'ja') ? 'en' : 'ja';
-    updateUI();
-  }
-
-  function updateUI() {
     const t = translations[currentLang];
-    document.getElementById('app-title').innerText = t.title;
-    document.getElementById('lang-toggle-btn').innerText = t.btnLang;
-    document.getElementById('info-summary').innerHTML = t.infoSummary;
-    document.getElementById('lbl-degree').innerText = t.lblDegree;
-    document.getElementById('btn-gen').innerText = t.btnGen;
-    document.getElementById('info-gen-text').innerText = t.infoGenText;
-    document.getElementById('link-generator').innerText = t.linkGen;
-    document.getElementById('info-gen-text-2').innerText = t.infoGenText2;
-    document.getElementById('lbl-bulk').innerText = t.lblBulk;
-    document.getElementById('btn-apply').innerText = t.btnApply;
-    document.getElementById('btn-start').innerText = t.btnStart;
-    document.getElementById('lbl-results').innerText = t.lblResults;
-    document.getElementById('link-home').innerText = t.linkHome;
-    document.getElementById('link-help').innerText = t.linkHelp;
-    document.getElementById('link-privacy').innerText = t.linkPrivacy;
 
-    renderResults();
-
-    const coeffHeader = document.getElementById('coeff-header-lbl');
-    if (coeffHeader) {
-      coeffHeader.innerText = t.lblCoeffsHeader;
-    }
-  }
-
-  function generateInputs() {
-    const n = parseInt(document.getElementById('deg-input').value);
-    const container = document.getElementById('coeff-container');
-    const t = translations[currentLang];
+    document.getElementById('pageTitle').innerText = t.pageTitle;
+    document.getElementById('navHome').innerText = t.navHome;
+    document.getElementById('navCalc').innerText = t.navCalc;
+    document.getElementById('navHelp').innerText = t.navHelp;
+    document.getElementById('navPrivacy').innerText = t.navPrivacy;
+    document.getElementById('langBtn').innerText = t.langBtn;
+    document.getElementById('mainTitle').innerText = t.mainTitle;
+    document.getElementById('infoOverview').innerHTML = t.infoOverview;
+    document.getElementById('labelDegree').innerText = t.labelDegree;
+    document.getElementById('labelMaxIter').innerText = t.labelMaxIter;
+    document.getElementById('btnGen').innerText = t.btnGen;
+    document.getElementById('infoGenerator').innerHTML = t.infoGenerator;
+    document.getElementById('labelBulk').innerText = t.labelBulk;
+    document.getElementById('btnBulk').innerText = t.btnBulk;
+    document.getElementById('labelCoeffList').innerText = t.labelCoeffList;
+    document.getElementById('btnStart').innerText = t.btnStart;
+    document.getElementById('statusPhase').innerText = t.statusPhase;
+    document.getElementById('resultHeader').innerText = t.resultHeader;
     
-    let html = `<label id="coeff-header-lbl">${t.lblCoeffsHeader}</label><div class="coeff-list">`;
-    for (let i = n; i >= 0; i--) {
-      html += `
-        <div style="margin-bottom: 5px; display: flex; align-items: center; gap: 10px;">
-          <span style="width: 80px; font-weight: bold; font-family: monospace;">a_${i} (x^${i}):</span>
-          <input type="text" id="coeff-${i}" value="${i === n ? '1' : '0'}" style="width: calc(100% - 90px);">
-        </div>`;
+    const output = document.getElementById('resultOutput');
+    if (output.innerText.includes("ここに解が表示されます") || output.innerText.includes("Roots will be displayed here")) {
+        output.innerText = t.resultPlaceholder;
     }
-    html += `</div>`;
-    container.innerHTML = html;
-  }
+}
 
-  function applyBulk() {
-    const text = document.getElementById('bulk-input').value;
-    const tokens = text.trim().split(/[\s,]+/).filter(t => t.length > 0);
-    if (tokens.length < 2) return;
-    const n = tokens.length - 1;
-    document.getElementById('deg-input').value = n;
+function c_add(a, b) { return { re: a.re.add(b.re), im: a.im.add(b.im) }; }
+function c_sub(a, b) { return { re: a.re.sub(b.re), im: a.im.sub(b.im) }; }
+function c_mul(a, b) {
+    return {
+        re: a.re.mul(b.re).sub(a.im.mul(b.im)),
+        im: a.re.mul(b.im).add(a.im.mul(b.re))
+    };
+}
+function c_div(a, b) {
+    const denom = b.re.mul(b.re).add(b.im.mul(b.im));
+    return {
+        re: a.re.mul(b.re).add(a.im.mul(b.im)).div(denom),
+        im: a.im.mul(b.re).sub(a.re.mul(b.im)).div(denom)
+    };
+}
+function c_abs(a) { return Decimal.sqrt(a.re.mul(a.re).add(a.im.mul(a.im))); }
+
+function evalPoly(A, z) {
+    let val = { re: new Decimal(A[0].re), im: new Decimal(A[0].im) };
+    for (let i = 1; i < A.length; i++) { val = c_add(c_mul(val, z), A[i]); }
+    return val;
+}
+
+function generateInputs() {
+    const n = parseInt(document.getElementById('degree').value);
+    const container = document.getElementById('coeffContainer');
+    container.innerHTML = '';
+    for (let i = n; i >= 0; i--) {
+        const div = document.createElement('div');
+        div.style.margin = '4px 0';
+        div.innerHTML = `a_${i} (x^${i}): <input type="text" id="coeff_${i}" value="${i === n ? '1' : '0'}" style="width: 80%;">`;
+        container.appendChild(div);
+    }
+}
+
+function parseBulkCoeffs() {
+    const text = document.getElementById('bulkCoeffs').value;
+    const tokens = text.trim().split(/[\s,]+/);
+    if (tokens.length === 0 || tokens[0] === '') return;
+    
+    document.getElementById('degree').value = tokens.length - 1;
     generateInputs();
     
+    const n = tokens.length - 1;
     for (let i = 0; i <= n; i++) {
-      const k = n - i;
-      const el = document.getElementById(`coeff-${k}`);
-      if (el && tokens[i] !== undefined) {
-        el.value = tokens[i];
-      }
+        const idx = n - i;
+        const input = document.getElementById(`coeff_${idx}`);
+        if (input) input.value = tokens[i];
     }
-  }
+}
 
-  function formatTime(sec) {
-    if (!isFinite(sec) || sec < 0) return "--:--:--";
-    const h = Math.floor(sec / 3600).toString().padStart(2, '0');
-    const m = Math.floor((sec % 3600) / 60).toString().padStart(2, '0');
-    const s = Math.floor(sec % 60).toString().padStart(2, '0');
-    return `${h}:${m}:${s}`;
-  }
+let startTime, timerInterval;
 
-  class Comp {
-    constructor(re, im) {
-      this.re = new Decimal(re);
-      this.im = new Decimal(im);
-    }
-    add(c) { return new Comp(this.re.plus(c.re), this.im.plus(c.im)); }
-    sub(c) { return new Comp(this.re.minus(c.re), this.im.minus(c.im)); }
-    mul(c) {
-      return new Comp(
-        this.re.times(c.re).minus(this.im.times(c.im)),
-        this.re.times(c.im).plus(this.im.times(c.re))
-      );
-    }
-    div(c) {
-      const denom = c.re.times(c.re).plus(c.im.times(c.im));
-      return new Comp(
-        this.re.times(c.re).plus(this.im.times(c.im)).div(denom),
-        this.im.times(c.re).minus(this.re.times(c.im)).div(denom)
-      );
-    }
-    abs() {
-      return this.re.times(this.re).plus(this.im.times(this.im)).sqrt();
-    }
-  }
+function startCalculationAsync() {
+    Decimal.set({ precision: 230 });
+    const EPS = new Decimal("1e-170");
+    const MAX_ITER = parseInt(document.getElementById('maxIterInput').value) || 1000;
 
-  let isCalculating = false;
-
-  async function startCalculation() {
-    if (isCalculating) return;
-    isCalculating = true;
-    Decimal.set({ precision: 200 });
+    const n = parseInt(document.getElementById('degree').value);
+    let rawCoeffs = [];
+    for (let i = n; i >= 0; i--) {
+        rawCoeffs.push(document.getElementById(`coeff_${i}`).value.trim());
+    }
 
     const t = translations[currentLang];
-    const n = parseInt(document.getElementById('deg-input').value);
+    document.getElementById('statusPanel').style.display = 'block';
+    document.getElementById('resultOutput').innerHTML = t.calculatingText;
+    
+    startTime = Date.now();
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        const hrs = String(Math.floor(elapsed / 3600)).padStart(2, '0');
+        const mins = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
+        const secs = String(elapsed % 60).padStart(2, '0');
+        document.getElementById('statusTime').innerText = `${t.statusTimePrefix}${hrs}:${mins}:${secs}`;
+    }, 1000);
 
-    const statusPanel = document.getElementById('status-panel');
-    const statusPhase = document.getElementById('status-phase');
-    const statusLoop = document.getElementById('status-loop');
-    const statusTime = document.getElementById('status-time');
-    const statusConvergence = document.getElementById('status-convergence');
-    const progressFill = document.getElementById('progress-fill');
-    const resultsContainer = document.getElementById('results-container');
-
-    statusPanel.style.display = 'block';
-    statusPhase.innerText = t.modeRunning;
-    resultsContainer.innerHTML = t.calcStart;
-
-    let A_orig = [];
-    for (let i = 0; i <= n; i++) {
-      const k = n - i;
-      A_orig.push(new Decimal(document.getElementById(`coeff-${k}`).value.trim() || '0'));
-    }
-
-    const a_n = A_orig[0];
-    const a_0 = A_orig[n];
-
-    let Sx = new Decimal(1);
-    if (!a_0.isZero() && !a_n.isZero()) {
-      Sx = a_0.abs().div(a_n.abs()).pow(new Decimal(1).div(n));
-    }
-
-    let C = [new Decimal(1)];
-    for (let i = 1; i <= n; i++) {
-      const denom = a_n.times(Sx.pow(i));
-      C.push(A_orig[i].div(denom));
-    }
+    let A = rawCoeffs.map(c => ({ re: new Decimal(c || 0), im: new Decimal(0) }));
+    const lead = A[0];
+    for (let i = 0; i <= n; i++) { A[i] = c_div(A[i], lead); }
 
     let z = [];
-    const R = new Decimal(1);
-    for (let i = 0; i < n; i++) {
-      const angle = new Decimal(2).times(Decimal.acos(-1)).times(i).plus(new Decimal("0.5")).div(n);
-      const r = R.times(new Decimal("0.9").pow(i));
-      z.push(new Comp(r.times(Decimal.cos(angle)), r.times(Decimal.sin(angle))));
+    let R = new Decimal("150");
+    const pi = Decimal.acos(-1);
+
+    for (let k = 0; k < n; k++) {
+        let angle = new Decimal(2).mul(pi).mul(k).div(n).add(new Decimal(3).div(new Decimal(4).mul(n)));
+        z.push({
+            re: R.mul(Decimal.cos(angle)),
+            im: R.mul(Decimal.sin(angle)),
+            iter: 0,
+            converged: false,
+            errRadius: new Decimal(Infinity)
+        });
     }
 
-    const startTime = Date.now();
-    const maxLoop = 20000;
-    let convergedList = new Array(n).fill(false);
-    let errorRadii = new Array(n).fill(new Decimal(1));
-    let perRootIter = new Array(n).fill(0);
+    let iter = 1;
 
-    function evalP(y_val) {
-      let val = new Comp(C[0], 0);
-      for (let i = 1; i <= n; i++) {
-        val = val.mul(y_val).add(new Comp(C[i], 0));
-      }
-      return val;
-    }
+    function step() {
+        let allConverged = true;
 
-    for (let loop = 1; loop <= maxLoop; loop++) {
-      let maxChange = new Decimal(0);
+        for (let i = 0; i < n; i++) {
+            if (z[i].converged) continue;
 
-      for (let i = 0; i < n; i++) {
-        const pVal = evalP(z[i]);
-        let denom = new Comp(1, 0);
-        for (let j = 0; j < n; j++) {
-          if (i !== j) {
-            denom = denom.mul(z[i].sub(z[j]));
-          }
+            let f_val = evalPoly(A, z[i]);
+            let denom = { re: new Decimal(1), im: new Decimal(0) };
+
+            for (let j = 0; j < n; j++) {
+                if (i === j) continue;
+                let diff = c_sub(z[i], z[j]);
+                denom = c_mul(denom, diff);
+            }
+
+            let delta = c_div(f_val, denom);
+            let errRad = c_abs(delta);
+
+            z[i].errRadius = errRad;
+            z[i].iter = iter;
+
+            if (errRad.lte(EPS)) {
+                z[i].converged = true;
+            } else {
+                allConverged = false;
+                z[i] = c_sub(z[i], delta);
+                z[i].iter = iter;
+                z[i].errRadius = errRad;
+            }
         }
-        const delta = pVal.div(denom);
-        z[i] = z[i].sub(delta);
-        const change = delta.abs();
-        errorRadii[i] = change.times(Sx);
 
-        if (change.gt(maxChange)) maxChange = change;
+        const percent = ((iter / MAX_ITER) * 100).toFixed(1);
+        document.getElementById('statusLoop').innerText = `Loop: ${iter} / ${MAX_ITER}`;
+        document.getElementById('statusConvergence').innerText = `${t.statusProgressPrefix}${percent}%`;
+        document.getElementById('progressBar').style.width = `${percent}%`;
 
-        if (!convergedList[i]) {
-          perRootIter[i] = loop;
-          if (change.lt(new Decimal("1e-180"))) {
-            convergedList[i] = true;
-          }
-        }
-      }
-
-      if (loop % 50 === 0 || loop === maxLoop) {
-        const now = Date.now();
-        const elapsedSec = (now - startTime) / 1000;
-        const progressPct = ((loop / maxLoop) * 100).toFixed(1);
-        const secPerLoop = elapsedSec / loop;
-        const remainingSec = secPerLoop * (maxLoop - loop);
-
-        statusLoop.innerText = `Loop: ${loop} / ${maxLoop} (Max Err: ${maxChange.toExponential(4)})`;
-        statusTime.innerText = `${t.elapsed}: ${formatTime(elapsedSec)} | ${t.remaining}: ${formatTime(remainingSec)}`;
-        statusConvergence.innerText = `${t.progress}: ${progressPct}% | ${t.convergedCount}: ${convergedList.filter(Boolean).length}/${n}`;
-        progressFill.style.width = `${progressPct}%`;
-        await new Promise(resolve => setTimeout(resolve, 1));
-      }
-
-      if (maxChange.lt(new Decimal("1e-180"))) break;
-    }
-
-    const totalElapsedSec = (Date.now() - startTime) / 1000;
-
-    // 個別反復回数の全合計を算出
-    const sumIterations = perRootIter.reduce((a, b) => a + b, 0);
-
-    statusLoop.innerText = `Loop: ${Math.max(...perRootIter)} / ${maxLoop}`;
-    statusTime.innerText = `${t.totalTime}: ${formatTime(totalElapsedSec)}`;
-    statusConvergence.innerText = `${t.progress}: 100.0% | ${t.convergedCount}: ${convergedList.filter(Boolean).length}/${n}`;
-    progressFill.style.width = "100%";
-
-    let roots = [];
-    for (let i = 0; i < n; i++) {
-      roots.push({
-        real: z[i].re.times(Sx),
-        imag: z[i].im.times(Sx),
-        err: errorRadii[i],
-        iter: perRootIter[i]
-      });
-    }
-    roots.sort((r1, r2) => r1.real.cmp(r2.real));
-
-    // 計算データをグローバルにキープ（モード切替時に再使用）
-    calculatedCache = {
-      n: n,
-      a_n: a_n,
-      Sx: Sx,
-      totalElapsedSec: totalElapsedSec,
-      sumIterations: sumIterations,
-      worstRadius: Decimal.max(...errorRadii),
-      roots: roots
-    };
-
-    renderResults();
-    isCalculating = false;
-  }
-
-  // 表示切替ロジック (キャッシュから結果を動的に描画)
-  function renderResults() {
-    const t = translations[currentLang];
-    const isFactorMode = document.getElementById('mode-toggle').checked;
-
-    // トグルラベルの動的更新
-    if (isFactorMode) {
-      document.getElementById('mode-label-title').innerText = t.modeTitleFactor;
-      document.getElementById('mode-label-desc').innerText = t.modeDescFactor;
-    } else {
-      document.getElementById('mode-label-title').innerText = t.modeTitleSolve;
-      document.getElementById('mode-label-desc').innerText = t.modeDescSolve;
-    }
-
-    if (!calculatedCache) return;
-
-    const resultsContainer = document.getElementById('results-container');
-    const { n, a_n, Sx, totalElapsedSec, sumIterations, worstRadius, roots } = calculatedCache;
-
-    let htmlResults = `
-      <div class="info-box" style="background:#e8f5e9; border-left-color:#2e7d32; margin-bottom:15px;">
-        <strong>${t.calcDone}</strong> (${t.totalTime}: ${formatTime(totalElapsedSec)})<br>
-        • ${t.totalLoops}: <strong>${sumIterations}</strong><br>
-        • ${t.scaleFactor}: <strong>S_x = ${Sx.toExponential(6)}</strong><br>
-        • ${t.worstRadius}: <strong>${worstRadius.toExponential(6)}</strong>
-      </div>
-    `;
-
-    if (isFactorMode) {
-      // 因数分解専用表示モード (小数第1位で四捨五入した整数化表示)
-      let factorText = "";
-      if (!a_n.equals(1)) {
-        factorText += `${a_n.toString()} * `;
-      }
-      for (let i = 0; i < n; i++) {
-        const r = roots[i];
-        const roundReal = r.real.round(); // 四捨五入
-        const roundImag = r.imag.round(); // 四捨五入
-
-        if (roundImag.isZero()) {
-          const sign = roundReal.gte(0) ? "-" : "+";
-          factorText += `(x ${sign} ${roundReal.abs().toString()})\n`;
+        if (allConverged || iter >= MAX_ITER) {
+            clearInterval(timerInterval);
+            z.sort((a, b) => (a.re.sub(b.re).isNegative() ? -1 : 1));
+            
+            const results = z.map((ans, idx) => ({
+                id: idx + 1,
+                reStr: ans.re.toFixed(100),
+                imStr: ans.im.toFixed(100),
+                errRadiusStr: ans.errRadius.toExponential(4),
+                iterations: ans.iter,
+                statusClass: ans.errRadius.lte(EPS) ? "err-ok" : "err-warn"
+            }));
+            
+            displayResults(results);
         } else {
-          const signR = roundReal.gte(0) ? "-" : "+";
-          const signI = roundImag.gte(0) ? "+" : "-";
-          factorText += `(x ${signR} (${roundReal.abs().toString()} ${signI} ${roundImag.abs().toString()}i))\n`;
+            iter++;
+            setTimeout(step, 0);
         }
-      }
-      htmlResults += `
-        <h4>${t.factorHeader}</h4>
-        <div class="factor-box">${factorText}</div>
-      `;
-    } else {
-      // 高精度解法表示モード (200桁高精度データを出力)
-      for (let i = 0; i < n; i++) {
-        const realRoot = roots[i].real;
-        const imagRoot = roots[i].imag;
-        const errRad = roots[i].err;
-        const iterCount = roots[i].iter;
-        const isOk = errRad.lt(new Decimal("1e-180"));
-        const signStr = imagRoot.gte(0) ? "+" : "-";
-
-        htmlResults += `
-          <div class="result-card ${isOk ? 'converged' : ''}">
-            <strong>${t.rootLabel} ${i + 1} ${isOk ? t.convergedTag : '⚠️'}</strong><br>
-            ${t.realPart}: <code>${realRoot.toFixed(100)}</code><br>
-            ${t.imagPart}: <code>${signStr} ${imagRoot.abs().toFixed(100)} i</code><br>
-            <span style="color:#555; font-size:0.8em;">${t.errorRadius}: ${errRad.toExponential(6)} | ${t.iterations}: ${iterCount}</span>
-          </div>
-        `;
-      }
     }
 
-    resultsContainer.innerHTML = htmlResults;
-  }
+    setTimeout(step, 10);
+}
 
-  // 初期化
-  generateInputs();
-  renderResults();
+function displayResults(results) {
+    const output = document.getElementById('resultOutput');
+    output.innerHTML = '';
+    const t = translations[currentLang];
+
+    results.forEach(res => {
+        const card = document.createElement('div');
+        card.className = `root-card ${res.statusClass}`;
+        const sign = new Decimal(res.imStr).isNegative() ? '' : '+ ';
+        card.innerHTML = `
+            <strong>${t.rootText} ${res.id}</strong> [${t.iterText}: ${res.iterations} | ${t.errRadiusText}: ${res.errRadiusStr}]<br>
+            ${t.realPartText}: ${res.reStr}<br>
+            ${t.imagPartText}: ${sign}${res.imStr} i
+        `;
+        output.appendChild(card);
+    });
+}
+
+generateInputs();
 </script>
 
 </body>
