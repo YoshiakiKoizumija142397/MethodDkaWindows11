@@ -1,6 +1,6 @@
 {
   "name": "methoddka-app",
-  "version": "2.5.1",
+  "version": "3.2.0",
   "description": "MethodDka - High Precision Polynomial Solver",
   "main": "main.js",
   "scripts": {
