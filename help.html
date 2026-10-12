@@ -91,11 +91,11 @@
   <div class="section">
     <h2 id="sec1-title">💡 使い方・基本操作</h2>
     <div id="sec1-body">
-      <p>MethodDka は、Durand-Kerner-Aberth (DKA) 法と Decimal.js を用いた 200桁高精度多項式解法 Web アプリケーションです。</p>
+      <p>MethodDka はDKA本体を260桁で演算し、実部は最大200有効桁、虚部は10<sup>-200</sup>単位に丸めて表示します。表示桁数・反復収束・残差検査は数値診断であり、根の正しさや誤差の保証ではありません。</p>
       <ul>
         <li><strong>次数指定:</strong> 計算したい多項式の最高次数 $n$（最大 200）を入力し「入力欄生成」を押します。</li>
         <li><strong>一括ペースト:</strong> 係数データを $a_n, a_{n-1}, \dots, a_0$ の降順（カンマまたは空白区切り）でペーストし「一括反映」を押すと、全係数が各入力欄へ一度に設定されます。</li>
-        <li><strong>計算実行:</strong> 「🚀 200桁高精度計算開始！」ボタンを押すと、200桁ダイレクト精度で反復計算を開始し、リアルタイム進捗・経過時間・全解・誤差半径を表示します。</li>
+        <li><strong>計算実行:</strong> 「🚀 高精度数値計算開始！」を押すと、260桁の内部精度（60桁のガード桁）で計算します。実部は最大200有効桁、虚部は小数点以下200桁で表示します。スケール後の補正量閾値は1e-220、正規化残差と係数再構成の検査閾値は1e-180です。これらの数値検査は真の誤差や正しさを保証しません。</li>
       </ul>
     </div>
   </div>
@@ -103,14 +103,15 @@
   <div class="section">
     <h2 id="sec2-title">🧪 検証用テストデータ：20次ウィルキンソン多項式</h2>
     <p id="sec2-desc">ウィルキンソン多項式 $W_{20}(x) = \prod_{i=1}^{20} (x - i)$ は、真の解が $1, 2, 3, \dots, 20$ となる有名な超悪条件多項式です。以下の一括テキストをコピーして計算アプリの「一括ペースト」欄へ貼り付けてお試しください。</p>
-    <div class="code-box">1, -210, 20615, -1256850, 53327946, -1672280820, 40171771630, -756111184500, 11310276995381, -135585182899 cliff, 1307535010540395, -10142299865511450, 6303081209929485, -31133364316139064, 120664780378037336, -359997951794760720, 803781182264505177, -1287093124515098880, 1380375975364070400, -875294803676160000, 2432902008176640000</div>
+    <div class="code-box">1, -210, 20615, -1256850, 53327946, -1672280820, 40171771630, -756111184500, 11310276995381, -135585182899530, 1307535010540395, -10142299865511450, 63030812099294896, -311333643161390640, 1206647803780373360, -3599979517947607200, 8037811822645051776, -12870931245150988800, 13803759753640704000, -8752948036761600000, 2432902008176640000</div>
   </div>
 
   <div class="section">
     <h2 id="sec3-title">🔗 外部テストツール連携</h2>
     <p id="sec3-body">
-      任意次数の完全精度ウィルキンソン多項式係数を生成する場合は、以下の専用ジェネレーターをご利用いただけます。<br>
-      👉 <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: var(--primary);" id="link-generator">MethodDka用 - 完全精度ウィルキンソン係数ジェネレータ</a>
+      テストデータの作成には、以下のジェネレーターをご利用いただけます。<br>
+      👉 <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: var(--primary);" id="link-generator">ウィルキンソン係数データウェア</a><br>
+      👉 <a href="https://yoshiakikoizumija142397.github.io/dka-multiple-root-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: var(--primary);" id="link-multiplicity-generator">重根係数データジェネレーター</a>
     </p>
   </div>
 
@@ -130,19 +131,22 @@
       btnLang: "English",
       sec1Title: "💡 使い方・基本操作",
       sec1Body: `
-        <p>MethodDka は、Durand-Kerner-Aberth (DKA) 法と Decimal.js を用いた 200桁高精度多項式解法 Web アプリケーションです。</p>
+        <p>MethodDka はDKA本体を260桁で演算し、実部は最大200有効桁、虚部は10<sup>-200</sup>単位に丸めて表示します。表示桁数・反復収束・残差検査は数値診断であり、根の正しさや誤差の保証ではありません。</p>
         <ul>
-          <li><strong>次数指定:</strong> 計算したい多項式の最高次数 n（最大 200）を入力し「入力欄生成」を押します。</li>
-          <li><strong>一括ペースト:</strong> 係数データを a_n, a_{n-1}, ..., a_0 の降順（カンマまたは空白区切り）でペーストし「一括反映」を押すと、全係数が各入力欄へ一度に設定されます。</li>
-          <li><strong>計算実行:</strong> 「🚀 200桁高精度計算開始！」ボタンを押すと、200桁ダイレクト精度で反復計算を開始し、リアルタイム進捗・経過時間・全解・誤差半径を表示します。</li>
+          <li><strong>次数指定:</strong> 計算する多項式の最高次数 n（最大200）を入力し、「入力欄生成」を押します。</li>
+          <li><strong>一括ペースト:</strong> 係数を降べき順（a_n, a_{n-1}, ..., a_0）にカンマまたは空白で区切って貼り付け、「一括反映」を押します。</li>
+          <li><strong>v3.4.0 重根前処理:</strong> 整数係数はBigIntで厳密に、それ以外は320桁精度でユン平方無因子分解を行います。異なる重複度の根を因子群へ分離し、各因子を既存DKAエンジンで個別に解きます。</li>
+          <li><strong>計算実行:</strong> 「🚀 高精度数値計算開始！」を押すと、260桁の内部精度（60桁のガード桁）で計算します。実部は最大200有効桁、虚部は小数点以下200桁で表示します。スケール後の補正量閾値は1e-220、正規化残差と係数再構成の検査閾値は1e-180です。これらの数値検査は真の誤差や正しさを保証しません。</li>
+          <li><strong>Gemini Pro解説 (任意):</strong> 計算後にGemini APIキーを入力し、解説ボタンを押すと係数と計算結果をGoogle Gemini APIへ送信して解説を表示します。キーは送信時に入力欄から消去され、保存されません。</li>
         </ul>
       `,
       sec2Title: "🧪 検証用テストデータ：20次ウィルキンソン多項式",
       sec2Desc: "ウィルキンソン多項式 W_20(x) = (x-1)(x-2)...(x-20) は、真の解が 1, 2, 3, ..., 20 となる有名な超悪条件多項式です。以下の一括テキストをコピーして計算アプリの「一括ペースト」欄へ貼り付けてお試しください。",
       sec3Title: "🔗 外部テストツール連携",
       sec3Body: `
-        任意次数の完全精度ウィルキンソン多項式係数を生成する場合は、以下の専用ジェネレーターをご利用いただけます。<br>
-        👉 <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: var(--primary);" id="link-generator">MethodDka用 - 完全精度ウィルキンソン係数ジェネレータ</a>
+        テストデータの作成には、以下のジェネレーターをご利用いただけます。<br>
+        👉 <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: var(--primary);" id="link-generator">ウィルキンソン係数データウェア</a><br>
+        👉 <a href="https://yoshiakikoizumija142397.github.io/dka-multiple-root-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: var(--primary);" id="link-multiplicity-generator">重根係数データジェネレーター</a>
       `,
       linkHome: "ホーム",
       linkCalc: "計算アプリ",
@@ -153,19 +157,22 @@
       btnLang: "日本語",
       sec1Title: "💡 How to Use & Basic Operations",
       sec1Body: `
-        <p>MethodDka is a Web application that solves high-degree polynomials with 200-digit precision using the Durand-Kerner-Aberth (DKA) method and Decimal.js.</p>
+        <p>MethodDka uses 260-digit DKA arithmetic. The real part is displayed to at most 200 significant digits; the imaginary part is rounded to the nearest 10<sup>-200</sup>. Output length, iteration convergence, and residual checks are numerical diagnostics, not guarantees of root accuracy or error bounds.</p>
         <ul>
           <li><strong>Degree Specification:</strong> Enter the polynomial degree n (up to 200) and click "Generate Fields".</li>
-          <li><strong>Bulk Paste:</strong> Paste coefficient data in descending order (a_n, a_{n-1}, ..., a_0 separated by commas or spaces) and click "Apply" to populate all fields at once.</li>
-          <li><strong>Execution:</strong> Click "🚀 Start 200-Digit Precision Solver!" to initiate iteration with 200-digit precision, displaying real-time progress, time, all roots, and error radii.</li>
+          <li><strong>Bulk Paste:</strong> Paste coefficient data in descending order (a_n, a_{n-1}, ..., a_0 separated by commas or spaces) and click "Apply Bulk" to populate all fields at once.</li>
+          <li><strong>v3.4.0 Multiple-root preprocessing:</strong> Yun square-free decomposition uses exact BigInt arithmetic for integer coefficients and 320-digit arithmetic otherwise, then separates roots by multiplicity and solves each factor using the existing DKA engine.</li>
+          <li><strong>Execution:</strong> Click "🚀 Start High-Precision Numerical Calculation!" to calculate with 260-digit internal precision (60 guard digits). The real part is displayed to at most 200 significant digits; the imaginary part is displayed to 200 decimal places. The scaled correction threshold is 1e-220; normalized residual and coefficient reconstruction checks use 1e-180. These numerical checks do not guarantee the true error or correctness.</li>
+          <li><strong>Optional Gemini Pro explanation:</strong> After calculation, enter a Gemini API key and click the explanation button to send the coefficients and results to the Google Gemini API. The key field is cleared on submission and the key is not saved.</li>
         </ul>
       `,
       sec2Title: "🧪 Benchmark Test Data: Degree 20 Wilkinson Polynomial",
       sec2Desc: "The Wilkinson polynomial W_20(x) = (x-1)(x-2)...(x-20) is a famous ill-conditioned polynomial with true roots 1, 2, 3, ..., 20. Copy the bulk text below and paste it into the 'Bulk Paste' field in the solver app.",
       sec3Title: "🔗 External Test Generator Tool",
       sec3Body: `
-        To generate exact Wilkinson coefficients for any degree, you can use our dedicated generator:<br>
-        👉 <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: var(--primary);" id="link-generator">Exact Precision Wilkinson Coefficient Generator</a>
+        Use these tools to create or obtain test coefficients:<br>
+        👉 <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: var(--primary);" id="link-generator">Wilkinson Coefficient Data Warehouse</a><br>
+        👉 <a href="https://yoshiakikoizumija142397.github.io/dka-multiple-root-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: var(--primary);" id="link-multiplicity-generator">Multiple-Root Coefficient Data Generator</a>
       `,
       linkHome: "Home",
       linkCalc: "Solver App",
@@ -175,11 +182,13 @@
 
   function toggleLanguage() {
     currentLang = (currentLang === 'ja') ? 'en' : 'ja';
+    document.documentElement.lang = currentLang;
     updateUI();
   }
 
   function updateUI() {
     const t = translations[currentLang];
+    document.title = t.title;
     document.getElementById('app-title').innerText = t.title;
     document.getElementById('lang-toggle-btn').innerText = t.btnLang;
     document.getElementById('sec1-title').innerText = t.sec1Title;

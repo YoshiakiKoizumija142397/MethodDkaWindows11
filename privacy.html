@@ -77,18 +77,18 @@
   </div>
 
   <div class="section">
-    <h2 id="sec1-title">1. 完全オフライン ＆ クライアントサイド動作</h2>
-    <p id="sec1-body">MethodDka は、全ての数値演算・表示処理をユーザーのブラウザ内（完全クライアントサイド）でのみ実行します。入力された係数データ、計算過程、および算出された解データが外部サーバーに送信または収集されることは一切ありません。</p>
+    <h2 id="sec1-title">1. クライアントサイド動作とGemini API連携</h2>
+    <p id="sec1-body">多項式の計算はユーザーのブラウザー内で実行され、通常は係数や計算結果を外部へ送信しません。任意のGemini Pro解説機能を利用する場合に限り、利用者が解説ボタンを押すと、入力係数と計算結果がGoogle Gemini APIへ送信されます。APIキーはページ上で入力され、送信時に入力欄から消去され、保存されません。送信データはGoogleの利用規約およびデータ処理条件に従って扱われます。</p>
   </div>
 
   <div class="section">
     <h2 id="sec2-title">2. 個人情報の収集・蓄積について</h2>
-    <p id="sec2-body">本アプリケーションは、ユーザーの個人情報、アクセスログ、クッキー（Cookies）、トラッキングデータ等を収集・保存・解析する機能を一切含んでおりません。完全なプライバシー保護環境で安心してご利用いただけます。</p>
+    <p id="sec2-body">MethodDkaの提供者は、個人情報、アクセスログ、クッキー（Cookies）、トラッキングデータを収集・保存しません。Gemini API利用時のデータ処理はGoogle側の規約・設定に従います。機密性の高い係数やAPIキーを入力しないでください。</p>
   </div>
 
   <div class="section">
     <h2 id="sec3-title">3. 外部ライブラリについて</h2>
-    <p id="sec3-body">本アプリは高精度演算に `Decimal.js`（CDN経由）を使用しています。スクリプトの初回読み込み時を除き、通信やトラッキングは発生いたしません。</p>
+    <p id="sec3-body">本アプリは高精度演算に Decimal.js（CDN経由）を使用します。また、利用者が明示的に依頼した場合に限りGoogle Gemini APIと通信します。MethodDkaはトラッキングを行いません。</p>
   </div>
 
   <div class="nav-links">
@@ -105,12 +105,12 @@
     ja: {
       title: "🔒 プライバシーポリシー",
       btnLang: "English",
-      sec1Title: "1. 完全オフライン ＆ クライアントサイド動作",
-      sec1Body: "MethodDka は、全ての数値演算・表示処理をユーザーのブラウザ内（完全クライアントサイド）でのみ実行します。入力された係数データ、計算過程、および算出された解データが外部サーバーに送信または収集されることは一切ありません。",
+      sec1Title: "1. クライアントサイド動作とGemini API連携",
+      sec1Body: "多項式の計算はユーザーのブラウザー内で実行され、通常は係数や計算結果を外部へ送信しません。任意のGemini Pro解説機能を利用する場合に限り、利用者が解説ボタンを押すと、入力係数と計算結果がGoogle Gemini APIへ送信されます。APIキーはページ上で入力され、送信時に入力欄から消去され、保存されません。送信データはGoogleの利用規約およびデータ処理条件に従って扱われます。",
       sec2Title: "2. 個人情報の収集・蓄積について",
-      sec2Body: "本アプリケーションは、ユーザーの個人情報、アクセスログ、クッキー（Cookies）、トラッキングデータ等を収集・保存・解析する機能を一切含んでおりません。完全なプライバシー保護環境で安心してご利用いただけます。",
+      sec2Body: "MethodDkaの提供者は、個人情報、アクセスログ、クッキー（Cookies）、トラッキングデータを収集・保存しません。Gemini API利用時のデータ処理はGoogle側の規約・設定に従います。機密性の高い係数やAPIキーを入力しないでください。",
       sec3Title: "3. 外部ライブラリについて",
-      sec3Body: "本アプリは高精度演算に Decimal.js（CDN経由）を使用しています。スクリプトの初回読み込み時を除き、通信やトラッキングは発生いたしません。",
+      sec3Body: "本アプリは高精度演算に Decimal.js（CDN経由）を使用します。また、利用者が明示的に依頼した場合に限りGoogle Gemini APIと通信します。MethodDkaはトラッキングを行いません。",
       linkHome: "ホーム",
       linkCalc: "計算アプリ",
       linkHelp: "ヘルプ"
@@ -118,12 +118,12 @@
     en: {
       title: "🔒 Privacy Policy",
       btnLang: "日本語",
-      sec1Title: "1. Fully Offline & Client-side Execution",
-      sec1Body: "MethodDka executes all numerical computations and UI rendering exclusively within the user's browser (100% client-side). Input coefficients, intermediate calculations, and solved roots are never transmitted to or collected by external servers.",
+      sec1Title: "1. Client-side Computation and Gemini API",
+      sec1Body: "Polynomial calculations run in the user's browser and coefficients or results are not normally sent externally. If the optional Gemini Pro explanation feature is used, the input coefficients and calculation results are sent to the Google Gemini API when the user clicks the explanation button. The API key is entered on this page, cleared from the field when submitted, and not saved. Google handles submitted data under its terms and data-processing policies.",
       sec2Title: "2. Personal Data Collection & Storage",
-      sec2Body: "This application contains no mechanisms to collect, store, or analyze personal data, access logs, cookies, or tracking metrics. You can use this software with complete privacy peace of mind.",
+      sec2Body: "The MethodDka provider does not collect or store personal data, access logs, cookies, or tracking metrics. Data processing when using the Gemini API is subject to Google's terms and settings. Do not enter sensitive coefficients or API keys.",
       sec3Title: "3. External Libraries",
-      sec3Body: "This application uses Decimal.js (via CDN) for high-precision arithmetic. Apart from fetching the initial library file, no network communications or tracking take place.",
+      sec3Body: "This application uses Decimal.js (via CDN) for high-precision arithmetic and contacts the Google Gemini API only when the user explicitly requests an explanation. MethodDka does not track users.",
       linkHome: "Home",
       linkCalc: "Solver App",
       linkHelp: "Help"
