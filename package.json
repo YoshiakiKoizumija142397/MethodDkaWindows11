@@ -1,6 +1,6 @@
 {
-    "name": "methoddka-app",
-  "version": "3.4.0",
+  "name": "methoddka-app",
+  "version": "3.4.1",
   "description": "MethodDka - High Precision Polynomial Solver",
   "main": "main.js",
   "scripts": {
@@ -39,7 +39,7 @@
       "shortcutName": "MethodDka",
       "warningsAsErrors": false
     },
-        "files": [
+    "files": [
       "main.js",
       "preload.js",
       "index.html",
@@ -57,5 +57,8 @@
   "author": {
     "name": "Koizumi Yoshiaki",
     "email": "ja142397@s6.dion.ne.jp"
+  },
+  "allowScripts": {
+    "electron@33.4.11": true
   }
 }
