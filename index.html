@@ -130,7 +130,7 @@
 
   <div class="hero-section">
     <h1 id="app-title">MethodDka</h1>
-    <span class="version-badge" id="version-text">v3.4.0 (実部200桁・虚部10^-200単位表示、正しさ保証なし)</span>
+    <span class="version-badge" id="version-text"></span>
     <p style="font-size: 1.1rem; color: #64748b; margin-top: 15px;" id="app-desc">
       DKA法とDecimal.jsを用いた多項式数値解法。実部は有効数字200桁、虚部は10^-200の単位で四捨五入して表示します。表示値は正しい有効桁数を保証しません。20次ウィルキンソン多項式の既知根1〜20とのベンチマーク照合を行い、このテストでの数値一致を確認しています。
     </p>
@@ -141,14 +141,14 @@
   </div>
 
   <div class="feature-list">
-    <h3 id="feature-title">✨ 主な特徴 (v3.4.0 新機能)</h3>
+    <h3 id="feature-title">✨ 主な特徴</h3>
     <ul id="feature-items">
-      <li><strong>高精度自動GCD前処理:</strong> 整数係数はBigIntで厳密に、それ以外は320桁精度で重根・多重根構造を検出。</li>
+      <li><strong>高精度自動GCD前処理:</strong> 整数係수는BigIntで厳密に、それ以外は320桁精度で重根・多重根構造を検出。</li>
       <li><strong>ユンの平方無因子分解:</strong> 異なる重複度を持つ根を重複度別の因子群に分離し、各群を既存の高精度DKAで個別に解きます。</li>
-      <li><strong>数値演算と表示:</strong> DKA本体は260桁精度で演算し、実部は有効数字200桁、虚部は10^-200の単位で四捨五入して表示します。20次ウィルキンソン多項式の既知根との照合では、検証した実行で実部がおよそ247〜258桁一致しました。これは同ベンチマークでの確認であり、他の入力に対する正しさの保証ではありません。</li>
+      <li><strong>数値演算と表示:</strong> DKA本体は260桁精度で演算し、実部は有効数字200桁、虚部は10^-200の単位で四捨五入して表示します。</li>
       <li><strong>検証付きフォールバック:</strong> 分解結果の除算余り・平方無因子性・次数を検証し、失敗時はログを残して元多項式をDKAへ渡します。</li>
       <li><strong>Pro デバッグアナライザ:</strong> 前処理の全ステップ（入力、微分、GCD、縮約式、余り、重複度）を黒背景パネルにリアルタイムダンプ。</li>
-      <li><strong>リアルタイム進行UI ＆ 非破壊モード切替:</strong> 進捗率・経過時間の表示と、数値解表示（実部200桁・虚部10^-200単位表示）／因数分解表示（整数化）のワンクリック切替。</li>
+      <li><strong>リアルタイム進行UI ＆ 非破壊モード切替:</strong> 進捗率・経過時間の表示と、数値解表示／因数分解表示のワンクリック切替。</li>
       <li><strong>任意のGemini Pro解説:</strong> 計算結果をAIで解説。依頼時のみ係数と結果をGoogle Gemini APIへ送り、APIキーは保存しません。</li>
     </ul>
   </div>
@@ -160,55 +160,42 @@
     <a href="privacy.html" id="link-privacy">🔒 プライバシーポリシー</a>
   </div>
 
-  <footer class="footer-copyright">
-    <div><strong>MethodDka v3.4.0</strong> — Created by <strong>Yoshiaki Koizumi (小泉嘉章)</strong></div>
+  <footer class="footer-copyright" id="footer-text">
+    <div><strong>MethodDka</strong> — Created by <strong>Yoshiaki Koizumi (小泉嘉章)</strong></div>
     <div>Copyright &copy; 2026 Yoshiaki Koizumi. Released under the <strong>MIT License</strong>.</div>
   </footer>
 </div>
 
 <script>
+  // --- バージョン一元管理定数 ---
+  const APP_VERSION = "v3.6.0";
+
   let currentLang = 'ja';
 
   const translations = {
     ja: {
       btnLang: "English",
-      versionText: "v3.4.0 (実部200桁・虚部10^-200単位表示、正しさ保証なし)",
+      versionText: `${APP_VERSION} (実部200桁・虚部10^-200単位表示、正しさ保証なし)`,
       appDesc: "DKA法とDecimal.jsを用いた多項式数値解法。実部は有効数字200桁、虚部は10^-200の単位で四捨五入して表示します。表示桁数は正しい有効桁数を保証しません。20次ウィルキンソン多項式の既知根1〜20とのベンチマーク照合を行い、このテストでの数値一致を確認しています。",
       btnLaunch: "🚀 MethodDka アプリを起動する",
-      featureTitle: "✨ 主な特徴 (v3.4.0 新機能)",
-      featureItems: `
-        <li><strong>高精度自動GCD前処理:</strong> 整数係数はBigIntで厳密に、それ以外は320桁精度で重根・多重根構造を検出。</li>
-        <li><strong>ユンの平方無因子分解:</strong> 異なる重複度を持つ根を重複度別の因子群に分離し、各群を既存の高精度DKAで個別に解きます。</li>
-        <li><strong>数値演算と表示:</strong> DKA本体は260桁精度で演算し、実部は有効数字200桁、虚部は10^-200の単位で四捨五入して表示します。20次ウィルキンソン多項式の既知根との照合では、検証した実行で実部がおよそ247〜258桁一致しました。これは同ベンチマークでの確認であり、他の入力に対する正しさの保証ではありません。</li>
-        <li><strong>検証付きフォールバック:</strong> 分解結果の除算余り・平方無因子性・次数を検証し、失敗時はログを残して元多項式をDKAへ渡します。</li>
-        <li><strong>Pro デバッグアナライザ:</strong> 前処理の全ステップ（入力、微分、GCD、縮約式、余り、重複度）を黒背景パネルにリアルタイムダンプ。</li>
-        <li><strong>リアルタイム進行UI ＆ 非破壊モード切替:</strong> 進捗率・経過時間の表示と、数値解表示（実部200桁・虚部10^-200単位表示）／因数分解表示（整数化）のワンクリック切替。</li>
-      `,
+      featureTitle: `✨ 主な特徴 (${APP_VERSION} 新機能)`,
       linkCalc: "🧪 計算アプリ",
       linkHelp: "📖 ヘルプ・テストデータ",
       linkGen: "📊 ウィルキンソン係数ジェネレーター",
-      linkPrivacy: "🔒 プライバシーポリシー"
+      linkPrivacy: "🔒 プライバシーポリシー",
+      footerHtml: `<div><strong>MethodDka ${APP_VERSION}</strong> — Created by <strong>Yoshiaki Koizumi (小泉嘉章)</strong></div><div>Copyright &copy; 2026 Yoshiaki Koizumi. Released under the <strong>MIT License</strong>.</div>`
     },
     en: {
       btnLang: "日本語",
-      versionText: "v3.4.0 (200-Digit Real Part; Imaginary Part Rounded to 10^-200; Not Accuracy-Certified)",
-      appDesc: "DKA and Decimal.js polynomial solver. The real part is displayed to 200 significant digits; the imaginary part is rounded to the nearest 10^-200. Display length does not guarantee accuracy. The degree-20 Wilkinson polynomial was benchmarked against its known roots 1–20; numerical agreement was confirmed for that test.",
+      versionText: `${APP_VERSION} (200-Digit Real Part; Imaginary Part Rounded to 10^-200; Not Accuracy-Certified)`,
       appDesc: "DKA and Decimal.js polynomial solver. The real part is displayed to 200 significant digits; the imaginary part is rounded to the nearest 10^-200. Display length does not guarantee accuracy. The degree-20 Wilkinson polynomial was benchmarked against its known roots 1–20; numerical agreement was confirmed for that test.",
       btnLaunch: "🚀 Launch MethodDka App",
-      featureTitle: "✨ Key Features (v3.4.0 New)",
-      featureItems: `
-        <li><strong>High-Precision Auto-GCD Preprocessing:</strong> Detects multiple roots using exact BigInt arithmetic for integer coefficients and 320-digit arithmetic otherwise.</li>
-        <li><strong>Yun Square-Free Decomposition:</strong> Separates roots with different multiplicities into factor groups and solves each with the existing high-precision DKA engine.</li>
-        <li><strong>Numerical Calculation & Display:</strong> The DKA solver uses 260-digit arithmetic, displays the real part to 200 significant digits, and rounds the imaginary part to the nearest 10^-200. A tested run of the degree-20 Wilkinson polynomial agreed with its known roots 1–20 to approximately 247–258 digits in the real parts. This validates that benchmark run only and does not guarantee accuracy for other inputs.</li>
-        <li><strong>Validated Fallback:</strong> Checks division remainders, factor square-freeness, and reconstructed degree; logs failures and sends the original polynomial to DKA.</li>
-        <li><strong>Pro Debug Analyzer:</strong> Real-time visual logging of all preprocessing steps (Input, Derivative, GCD, Quotient, Remainder, Multiplicity).</li>
-        <li><strong>Real-Time UI & Mode Toggle:</strong> Progress tracking with instant switching between numerical roots (200-significant-digit real part and imaginary part rounded to 10^-200) and factored form mode.</li>
-        <li><strong>Optional Gemini Pro Explanation:</strong> Get AI explanations of results. Coefficients and roots are sent to the Google Gemini API only when requested; the API key is not saved.</li>
-      `,
+      featureTitle: `✨ Key Features (${APP_VERSION} New)`,
       linkCalc: "🧪 Solver App",
       linkHelp: "📖 Help & Benchmark",
       linkGen: "📊 Wilkinson Coeff Generator",
-      linkPrivacy: "🔒 Privacy Policy"
+      linkPrivacy: "🔒 Privacy Policy",
+      footerHtml: `<div><strong>MethodDka ${APP_VERSION}</strong> — Created by <strong>Yoshiaki Koizumi (小泉嘉章)</strong></div><div>Copyright &copy; 2026 Yoshiaki Koizumi. Released under the <strong>MIT License</strong>.</div>`
     }
   };
 
@@ -224,12 +211,17 @@
     document.getElementById('app-desc').innerText = t.appDesc;
     document.getElementById('btn-launch').innerText = t.btnLaunch;
     document.getElementById('feature-title').innerText = t.featureTitle;
-    document.getElementById('feature-items').innerHTML = t.featureItems;
     document.getElementById('link-calc').innerText = t.linkCalc;
     document.getElementById('link-help').innerText = t.linkHelp;
     document.getElementById('link-gen').innerText = t.linkGen;
     document.getElementById('link-privacy').innerText = t.linkPrivacy;
+    document.getElementById('footer-text').innerHTML = t.footerHtml;
   }
+
+  // 初期ロード時に反映
+  window.addEventListener('DOMContentLoaded', () => {
+    updateUI();
+  });
 </script>
 
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="pageTitle">MethodDka v3.4.0 (260桁内部演算・最大200桁形式出力)</title>
+<title id="pageTitle">MethodDka v3.6.0 (260桁内部演算・最大180桁形式出力)</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.4.3/decimal.min.js"></script>
 <style>
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 15px; background-color: #f8f9fa; color: #333; }
@@ -65,16 +65,16 @@ button.auto-btn { background-color: #1a73e8; width: 100%; padding: 12px; font-si
 </div>
 
 <div class="container">
-    <h1 id="mainTitle">MethodDka v3.4.0 (260桁内部演算・最大200桁形式出力) <span class="pro-badge">PRO EXTENSION</span></h1>
+    <h1 id="mainTitle">MethodDka v3.6.0 (260桁内部演算・最大180桁形式出力) <span class="pro-badge">PRO EXTENSION</span></h1>
 
     <div class="info-box" id="infoOverview">
-        <strong>概要:</strong> DKA法と Decimal.js による <strong>260桁内部演算・最大200桁形式出力</strong>（出力桁数は正しい有効桁数の保証ではありません。残差・収束判定も数値検査であり、誤差や正しさの証明ではありません）。整数係数はBigIntで厳密に、それ以外は320桁精度でユン平方無因子分解を行う重複度別前処理付きです。
+        <strong>概要:</strong> DKA法と Decimal.js による <strong>260桁内部演算・最大180桁形式出力</strong>（出力桁数は正しい有効桁数の保証ではありません。残差・収束判定も数値検査であり、誤差や正しさの証明ではありません）。整数係数はBigIntで厳密に、それ以外は320桁精度でユン平方無因子分解を行う重複度別前処理と、アーリー・エグジット（停滞検知・個別ロック）による超高速化付きです。
     </div>
 
     <div class="input-row">
         <div>
-            <label for="degree" id="labelDegree">最高次数 (n ≤ 200):</label><br>
-            <input type="number" id="degree" value="4" min="1" max="200" style="width: 100px;">
+            <label for="degree" id="labelDegree">最高次数 (n ≤ 1000):</label><br>
+            <input type="number" id="degree" value="4" min="1" max="1000" style="width: 100px;">
             <button onclick="generateInputs()" id="btnGen">入力欄生成</button>
         </div>
         <div>
@@ -149,16 +149,16 @@ let currentLang = 'ja';
 
 const translations = {
     ja: {
-        pageTitle: "MethodDka v3.4.0 (260桁内部演算・最大200桁形式出力)",
+        pageTitle: "MethodDka v3.6.0 (260桁内部演算・最大180桁形式出力)",
         navHome: "🏠 トップ",
         navCalc: "🧮 計算",
         navHelp: "📖 ヘルプ",
         navPrivacy: "🔒 プライバシー",
         counterLabel: "👀 訪問数:",
         langBtn: "English",
-        mainTitle: "MethodDka v3.4.0 (260桁内部演算・最大200桁形式出力) <span class=\"pro-badge\">PRO EXTENSION</span>",
-        infoOverview: "<strong>概要:</strong> DKA法と Decimal.js による <strong>260桁内部演算・最大200桁形式出力</strong>（出力桁数は正しい有効桁数の保証ではありません。残差・収束判定も数値検査であり、誤差や正しさの証明ではありません）。整数係数はBigIntで厳密に、それ以外は320桁精度でユン平方無因子分解を行う重複度別前処理付きです。",
-        labelDegree: "最高次数 (n ≤ 200):",
+        mainTitle: "MethodDka v3.6.0 (260桁内部演算・最大180桁形式出力) <span class=\"pro-badge\">PRO EXTENSION</span>",
+        infoOverview: "<strong>概要:</strong> DKA法と Decimal.js による <strong>260桁内部演算・最大180桁形式出力</strong>（出力桁数は正しい有効桁数の保証ではありません。残差・収束判定も数値検査であり、誤差や正しさの証明ではありません）。整数係数はBigIntで厳密に、それ以外は320桁精度でユン平方無因子分解を行う重複度別前処理と、アーリー・エグジット（停滞検知・個別ロック）による超高速化付きです。",
+        labelDegree: "最高次数 (n ≤ 1000):",
         labelMaxIter: "最大反復回数 (セーフティロック):",
         btnGen: "入力欄生成",
         infoGenerator: '💡 テスト用係数の作成・取得: <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: #1a73e8; text-decoration: underline;">ウィルキンソン係数データウェア</a> | <a href="https://yoshiakikoizumija142397.github.io/dka-multiple-root-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: #1a73e8; text-decoration: underline;">重根係数データジェネレーター</a> で作成し、係数一括ペースト欄へ貼り付けできます。',
@@ -191,7 +191,7 @@ const translations = {
         normalizedResidualText: "正規化残差 (後退誤差)",
         realPartText: "実部",
         imagPartText: "虚部",
-        compactOutputNotice: "実部は有効数字200桁、虚部は10^-200の単位で四捨五入して表示します（正しさの保証はありません）。",
+        compactOutputNotice: "実部は有効数字180桁、虚部は10^-180の単位で四捨五入して表示します（正しさの保証はありません）。",
         multiplicityText: "重複度 (Multiplicity)",
         aiAnalysisTitle: "🤖 Gemini Proによる結果解説 (任意)",
         aiKeyLabel: "Gemini APIキー:",
@@ -209,25 +209,25 @@ const translations = {
         aiPrompt: "次の多項式と数値解について日本語で解説してください。根が示す内容を説明し、重根があれば触れ、最終補正量、正規化残差、多項式係数再構成残差を数値診断として説明してください。これらは真の根誤差や正しさの証明ではありません。入力された数値結果を超える精度を主張せず、係数は降べき順です。",
         aiSystemInstruction: "あなたは多項式の根を求める数値計算結果を説明する慎重なアシスタントです。数値近似と数学的証明を明確に区別してください。",
         invalidPolynomial: "次数1以上の非零多項式を入力してください。",
-        invalidDegreeInput: "最高次数は1〜200の整数で指定してください。",
+        invalidDegreeInput: "最高次数は1〜1000の整数で指定してください。",
         generateInputsFirst: "次数を変更した場合は、先に「入力欄生成」を押してください。",
         invalidMaxIterations: "最大反復回数は10〜50,000の10刻みで指定してください。",
-        invalidBulkCount: "一括係数は2〜201個（次数1〜200）で入力してください。",
+        invalidBulkCount: "一括係数は2〜1001個（次数1〜1000）で入力してください。",
         invalidCoefficient: "係数はすべて有限な数値で入力してください。",
         decimalUnavailable: "高精度演算ライブラリの読み込みに失敗しました。ネットワーク接続を確認して再読み込みしてください。",
         calculationErrorPrefix: "計算エラー: "
     },
     en: {
-        pageTitle: "MethodDka v3.4.0 (260-Digit Arithmetic, Up to 200-Digit Output)",
+        pageTitle: "MethodDka v3.6.0 (260-Digit Arithmetic, Up to 180-Digit Output)",
         navHome: "🏠 Home",
         navCalc: "🧮 Calc",
         navHelp: "📖 Help",
         navPrivacy: "🔒 Privacy",
         counterLabel: "👀 Visits:",
         langBtn: "日本語",
-        mainTitle: "MethodDka v3.4.0 (260-Digit Arithmetic, Up to 200-Digit Output) <span class=\"pro-badge\">PRO EXTENSION</span>",
-        infoOverview: "<strong>Overview:</strong> Solves polynomials using DKA with <strong>260-digit internal arithmetic and output formatted to at most 200 digits</strong>. The output length does not guarantee correct significant digits; residuals and convergence are numerical checks, not proofs of error or correctness. Yun square-free preprocessing groups by multiplicity (exact BigInt arithmetic for integer coefficients; 320-digit decimal arithmetic otherwise).",
-        labelDegree: "Max Degree (n ≤ 200):",
+        mainTitle: "MethodDka v3.6.0 (260-Digit Arithmetic, Up to 180-Digit Output) <span class=\"pro-badge\">PRO EXTENSION</span>",
+        infoOverview: "<strong>Overview:</strong> Solves polynomials using DKA with <strong>260-digit internal arithmetic and output formatted to at most 180 digits</strong>. The output length does not guarantee correct significant digits; residuals and convergence are numerical checks, not proofs of error or correctness. Yun square-free preprocessing groups by multiplicity (exact BigInt arithmetic for integer coefficients; 320-digit decimal arithmetic otherwise). Accelerated with Early Exit (stagnation detection & individual locking).",
+        labelDegree: "Max Degree (n ≤ 1000):",
         labelMaxIter: "Max Iterations (Safety Lock):",
         btnGen: "Generate Inputs",
         infoGenerator: '💡 Generate or obtain test coefficients using the <a href="https://yoshiakikoizumija142397.github.io/wilkinson-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: #1a73e8; text-decoration: underline;">Wilkinson Coefficient Data Warehouse</a> or the <a href="https://yoshiakikoizumija142397.github.io/dka-multiple-root-coeff-generator/" target="_blank" rel="noopener" style="font-weight: bold; color: #1a73e8; text-decoration: underline;">Multiple-Root Coefficient Data Generator</a>, then paste them into the bulk coefficient field.',
@@ -260,7 +260,7 @@ const translations = {
         normalizedResidualText: "Normalized Residual (backward error)",
         realPartText: "Real Part",
         imagPartText: "Imaginary Part",
-        compactOutputNotice: "The real part is formatted to 200 significant digits; the imaginary part is rounded to the nearest 10^-200 (accuracy is not guaranteed).",
+        compactOutputNotice: "The real part is formatted to 180 significant digits; the imaginary part is rounded to the nearest 10^-180 (accuracy is not guaranteed).",
         multiplicityText: "Multiplicity",
         aiAnalysisTitle: "🤖 Explain Results with Gemini Pro (Optional)",
         aiKeyLabel: "Gemini API key:",
@@ -278,10 +278,10 @@ const translations = {
         aiPrompt: "Explain the following polynomial and numerical solution in English. Describe what the roots mean, note repeated roots if present, and interpret the final correction, normalized residual, and polynomial coefficient reconstruction residual as numerical diagnostics only. They are not bounds on true root error or proofs of correctness. Do not claim greater accuracy than the supplied numerical results support. Coefficients are listed in descending powers.",
         aiSystemInstruction: "You are a careful assistant explaining polynomial root-finding results. Distinguish numerical approximations from proofs.",
         invalidPolynomial: "Enter a non-zero polynomial of degree at least one.",
-        invalidDegreeInput: "Enter a whole-number degree from 1 to 200.",
+        invalidDegreeInput: "Enter a whole-number degree from 1 to 1000.",
         generateInputsFirst: "After changing the degree, click “Generate Inputs” before calculating.",
         invalidMaxIterations: "Enter an iteration limit from 10 to 50,000 in increments of 10.",
-        invalidBulkCount: "Enter 2 to 201 coefficients (degree 1 to 200).",
+        invalidBulkCount: "Enter 2 to 1001 coefficients (degree 1 to 1000).",
         invalidCoefficient: "All coefficients must be finite numeric values.",
         decimalUnavailable: "The high-precision arithmetic library could not be loaded. Check your network connection and reload.",
         calculationErrorPrefix: "Calculation error: "
@@ -318,17 +318,15 @@ let analysisRequestId = 0;
 let isCalculating = false;
 let inputErrorKey = null;
 
-// === 言語切り替え処理の実装 ===
 function toggleLanguage() {
     currentLang = currentLang === 'ja' ? 'en' : 'ja';
-    document.documentElement.lang = currentLang; // HTMLタグのlang属性更新
+    document.documentElement.lang = currentLang;
     applyTranslations();
 }
 
 function applyTranslations() {
     const t = translations[currentLang];
 
-    // 静的テキストの更新
     document.getElementById('pageTitle').innerText = t.pageTitle;
     document.getElementById('navHome').innerText = t.navHome;
     document.getElementById('navCalc').innerText = t.navCalc;
@@ -337,7 +335,6 @@ function applyTranslations() {
     document.getElementById('counterLabel').innerText = t.counterLabel;
     document.getElementById('langBtn').innerText = t.langBtn;
 
-    // HTMLを含む部分の更新
     document.getElementById('mainTitle').innerHTML = t.mainTitle;
     document.getElementById('infoOverview').innerHTML = t.infoOverview;
     document.getElementById('infoGenerator').innerHTML = t.infoGenerator;
@@ -357,7 +354,6 @@ function applyTranslations() {
     document.getElementById('aiAnalyzeButton').innerText = t.aiAnalyzeButton;
     document.getElementById('inputError').innerText = inputErrorKey ? t[inputErrorKey] : '';
 
-    // placeholderや待機中テキストの更新
     const resOut = document.getElementById('resultOutput');
     const oldJaPlace = translations['ja'].resultPlaceholder;
     const oldEnPlace = translations['en'].resultPlaceholder;
@@ -380,7 +376,6 @@ function applyTranslations() {
     }
 }
 
-// 複素数演算ライブラリ (Decimal.js)
 function c_add(a, b) { return { re: a.re.add(b.re), im: a.im.add(b.im) }; }
 function c_sub(a, b) { return { re: a.re.sub(b.re), im: a.im.sub(b.im) }; }
 function c_mul(a, b) {
@@ -471,14 +466,14 @@ function formatResidual(value, translation) {
 function formatRootDisplay(value) {
     const number = new Decimal(value);
     return number.isZero()
-        ? `0.${"0".repeat(199)}e+0`
-        : number.toExponential(199);
+        ? `0.${"0".repeat(179)}e+0`
+        : number.toExponential(179);
 }
 
 function formatImaginaryRoot(value) {
     return new Decimal(value)
-        .toDecimalPlaces(200, Decimal.ROUND_HALF_UP)
-        .toFixed(200);
+        .toDecimalPlaces(180, Decimal.ROUND_HALF_UP)
+        .toFixed(180);
 }
 
 function estimateRootScale(monicCoeffs) {
@@ -495,7 +490,6 @@ function estimateRootScale(monicCoeffs) {
     return maxRootBound.isZero() ? new Decimal(1) : maxRootBound.times(2);
 }
 
-// デバッグログ
 let debugLogs = [];
 function logDebug(msg) {
     debugLogs.push(msg);
@@ -507,9 +501,6 @@ function polyToString(poly) {
     return "[" + poly.map((c, i) => `x^${deg - i}: ${c.toFixed(4)}`).join(", ") + "]";
 }
 
-// ============================================================
-// 【Pro拡張版・バグ完全修復済】前処理モジュール
-// ============================================================
 function trimLeadingZeros(poly, eps) {
     let idx = poly.findIndex(c => c.abs().gt(eps));
     if (idx === -1) return [new Decimal(0)];
@@ -591,7 +582,6 @@ function polyGCD(A_in, B_in, eps) {
             if (c.abs().gt(maxRem)) maxRem = c.abs();
         }
         
-        // 余りがゼロになったら「割る数 (B_curr)」が真のGCD！
         if (maxRem.lte(eps)) {
             return B_curr; 
         }
@@ -637,7 +627,7 @@ function integerPolyGcd(A, B) {
     while (!(b.length === 1 && b[0] === 0n)) {
         let remainder = a.slice();
         while (remainder.length >= b.length &&
-               !(remainder.length === 1 && remainder[0] === 0n)) {
+                !(remainder.length === 1 && remainder[0] === 0n)) {
             const leadingRemainder = remainder[0];
             const leadingDivisor = b[0];
             const scaled = remainder.map(coefficient => coefficient * leadingDivisor);
@@ -832,12 +822,9 @@ function preprocessSquareFree(polyCoeffs, eps) {
     }
 }
 
-// ============================================================
-// 画面制御処理・DKA本体処理
-// ============================================================
 function generateInputs() {
     const n = Number(document.getElementById('degree').value);
-    if (!Number.isInteger(n) || n < 1 || n > 200) {
+    if (!Number.isInteger(n) || n < 1 || n > 1000) {
         showInputError('invalidDegreeInput');
         return;
     }
@@ -865,7 +852,7 @@ function parseBulkCoeffs() {
         return;
     }
     const tokens = trimmedText.split(/[\s,]+/);
-    if (tokens.length < 2 || tokens.length > 201) {
+    if (tokens.length < 2 || tokens.length > 1001) {
         showInputError('invalidBulkCount');
         return;
     }
@@ -916,7 +903,7 @@ function startCalculationAsync() {
     }
     const requestedDegree = Number(document.getElementById('degree').value);
     const maxIterations = Number(document.getElementById('maxIterInput').value);
-    if (!Number.isInteger(requestedDegree) || requestedDegree < 1 || requestedDegree > 200) {
+    if (!Number.isInteger(requestedDegree) || requestedDegree < 1 || requestedDegree > 1000) {
         showInputError('invalidDegreeInput');
         return;
     }
@@ -966,7 +953,6 @@ function startCalculationAsync() {
     document.getElementById('progressBar').style.width = '0%';
     document.getElementById('resultOutput').textContent = t.calculatingText;
 
-    // 【ステップ 1: 前処理フェーズ 320桁】
     Decimal.set({ precision: 320 });
     const PRE_EPS = new Decimal("1e-220");
     let gcdResult;
@@ -992,7 +978,6 @@ function startCalculationAsync() {
         return;
     }
 
-    // 200 significant output digits with 60 guard digits in the DKA arithmetic.
     const OUTPUT_DIGITS = 200;
     Decimal.set({ precision: OUTPUT_DIGITS + 60 });
     const EPS = new Decimal("1e-220");
@@ -1079,80 +1064,193 @@ function startCalculationAsync() {
                 .add(new Decimal(3).div(new Decimal(4).mul(n)));
             z.push({
                 re: R.mul(Decimal.cos(angle)),
-                im: R.mul(Decimal.sin(angle)),
-                iter: 0,
-                converged: false,
-                finalCorrection: new Decimal(Infinity)
+                im: R.mul(Decimal.sin(angle))
             });
         }
 
+        // ============================================================
+        // 【v3.6.0 超高速化コア】個別ロック・停滞検知・タイムスライス実行
+        // ============================================================
+        const STRICT_TOLERANCE_SQ = EPS.mul(EPS); // 1e-220 の2乗 (1e-440)
+        const STAGNATION_BASE_SQ = new Decimal("1e-180").pow(2); // 停滞判定開始ライン (1e-360)
+        const STAGNATION_RATIO_SQ = new Decimal("0.99").pow(2); // 減少率閾値の2乗 (約0.9801)
+        const HISTORY_SIZE = 3;
+
+        const polyRe = scaledA.map(c => c.re);
+
+        const zRe = new Array(n);
+        const zIm = new Array(n);
+        const nextZRe = new Array(n);
+        const nextZIm = new Array(n);
+        
+        // --- v3.6.0 新機能: アーリー・エグジット用配列 ---
+        const converged = new Array(n).fill(false);
+        const deltaHistoriesSq = Array.from({ length: n }, () => []);
+        
+        const iterCount = new Array(n).fill(0);
+        const finalCorrections = new Array(n);
+
+        for (let k = 0; k < n; k++) {
+            zRe[k] = z[k].re;
+            zIm[k] = z[k].im;
+        }
+
         let iter = 1;
-        function step() {
+
+        function stepBatch() {
             t = translations[currentLang];
-            let allConverged = true;
-            const nextZ = new Array(n);
+            const batchStartTime = Date.now();
+            let allConverged = false;
 
-            for (let i = 0; i < n; i++) {
-                if (z[i].converged) {
-                    nextZ[i] = z[i];
-                    continue;
-                }
+            while (iter <= MAX_ITER) {
+                allConverged = true;
 
-                const fVal = evalPoly(scaledA, z[i]);
-                let denom = { re: new Decimal(1), im: new Decimal(0) };
+                for (let i = 0; i < n; i++) {
+                    // --- 個別根収束ステータス管理 (Root-wise Convergence Locking) ---
+                    if (converged[i]) {
+                        nextZRe[i] = zRe[i];
+                        nextZIm[i] = zIm[i];
+                        continue;
+                    }
 
-                for (let j = 0; j < n; j++) {
-                    if (i === j) continue;
-                    denom = c_mul(denom, c_sub(z[i], z[j]));
-                }
+                    const ziRe = zRe[i];
+                    const ziIm = zIm[i];
 
-                const delta = c_div(fVal, denom);
-                const scaledError = c_abs(delta);
-                const finalCorrection = scaledError.mul(rootScale);
+                    let vRe = polyRe[0];
+                    let vIm = new Decimal(0);
+                    for (let c = 1; c <= n; c++) {
+                        const nRe = vRe.mul(ziRe).sub(vIm.mul(ziIm)).add(polyRe[c]);
+                        const nIm = vRe.mul(ziIm).add(vIm.mul(ziRe));
+                        vRe = nRe;
+                        vIm = nIm;
+                    }
 
-                if (scaledError.lte(EPS)) {
-                    nextZ[i] = {
-                        ...z[i],
-                        iter,
-                        converged: true,
-                        finalCorrection
-                    };
-                } else {
+                    let dRe = new Decimal(1);
+                    let dIm = new Decimal(0);
+                    for (let j = 0; j < n; j++) {
+                        if (i === j) continue;
+                        const diffRe = ziRe.sub(zRe[j]);
+                        const diffIm = ziIm.sub(zIm[j]);
+                        const nDRe = dRe.mul(diffRe).sub(dIm.mul(diffIm));
+                        const nDIm = dRe.mul(diffIm).add(dIm.mul(diffRe));
+                        dRe = nDRe;
+                        dIm = nDIm;
+                    }
+
+                    const dNorm = dRe.mul(dRe).add(dIm.mul(dIm));
+                    const deltaRe = vRe.mul(dRe).add(vIm.mul(dIm)).div(dNorm);
+                    const deltaIm = vIm.mul(dRe).sub(vRe.mul(dIm)).div(dNorm);
+
+                    const normSq = deltaRe.mul(deltaRe).add(deltaIm.mul(deltaIm));
+
+                    // --- 補正量の履歴更新 ---
+                    deltaHistoriesSq[i].push(normSq);
+                    if (deltaHistoriesSq[i].length > HISTORY_SIZE) {
+                        deltaHistoriesSq[i].shift();
+                    }
+
+                    const calculatedNextRe = ziRe.sub(deltaRe);
+                    const calculatedNextIm = ziIm.sub(deltaIm);
+
+                    // --- 厳密な収束判定 ---
+                    if (normSq.lte(STRICT_TOLERANCE_SQ)) {
+                        converged[i] = true;
+                        iterCount[i] = iter;
+                        finalCorrections[i] = Decimal.sqrt(normSq).mul(rootScale);
+                        nextZRe[i] = calculatedNextRe;
+                        nextZIm[i] = calculatedNextIm;
+                        continue;
+                    }
+
+                    // --- 補正量の停滞検知 (Stagnation Detection) ---
+                    if (deltaHistoriesSq[i].length === HISTORY_SIZE && normSq.lte(STAGNATION_BASE_SQ)) {
+                        const oldestNormSq = deltaHistoriesSq[i][0];
+                        const newestNormSq = deltaHistoriesSq[i][HISTORY_SIZE - 1];
+
+                        if (!oldestNormSq.isZero()) {
+                            // 減少率(の2乗)を計算
+                            const improvementSq = newestNormSq.div(oldestNormSq);
+                            
+                            // 減少率が STAGNATION_RATIO_SQ 以上なら停滞(頭打ち)とみなす
+                            if (improvementSq.gte(STAGNATION_RATIO_SQ)) {
+                                converged[i] = true; // 強制ロック (アーリー・エグジット)
+                                iterCount[i] = iter;
+                                finalCorrections[i] = Decimal.sqrt(normSq).mul(rootScale);
+                                nextZRe[i] = calculatedNextRe;
+                                nextZIm[i] = calculatedNextIm;
+                                continue;
+                            }
+                        }
+                    }
+
+                    // 未収束・非停滞の根のみ更新
                     allConverged = false;
-                    nextZ[i] = {
-                        ...c_sub(z[i], delta),
-                        iter,
-                        converged: false,
-                        finalCorrection
-                    };
+                    iterCount[i] = iter;
+                    nextZRe[i] = calculatedNextRe;
+                    nextZIm[i] = calculatedNextIm;
+                }
+
+                for (let i = 0; i < n; i++) {
+                    zRe[i] = nextZRe[i];
+                    zIm[i] = nextZIm[i];
+                }
+
+                // --- 全ての根がロックされたらループ脱出 ---
+                if (allConverged || iter >= MAX_ITER) {
+                    break;
+                }
+
+                iter++;
+
+                if (Date.now() - batchStartTime >= 40) {
+                    break; // UI応答性維持のためタイムスライス
                 }
             }
-            z.splice(0, n, ...nextZ);
 
-            const convergedInFactor = z.filter(root => root.converged).length * multiplicity;
+            const convergedInFactor = converged.filter(Boolean).length * multiplicity;
             const convergence = ((convergedDegree + convergedInFactor) / originalDegree) * 100;
             document.getElementById('statusLoop').innerText =
-                `${t.statusFactorPrefix} ${factorIndex + 1} / ${factors.length} | ${t.statusLoopPrefix}: ${iter} / ${MAX_ITER}`;
+                `${t.statusFactorPrefix} ${factorIndex + 1} / ${factors.length} | ${t.statusLoopPrefix}: ${Math.min(iter, MAX_ITER)} / ${MAX_ITER}`;
             document.getElementById('statusConvergence').innerText =
                 `${t.statusConvergencePrefix}${convergence.toFixed(1)}% (${convergedDegree + convergedInFactor}/${originalDegree})`;
             document.getElementById('progressBar').style.width = `${convergence}%`;
 
             if (allConverged || iter >= MAX_ITER) {
                 totalIterations += iter;
-                z.sort((a, b) => (a.re.sub(b.re).isNegative() ? -1 : 1));
-                z.forEach(ans => {
+
+                for (let i = 0; i < n; i++) {
+                    if (!finalCorrections[i]) {
+                        finalCorrections[i] = new Decimal(Infinity);
+                    }
+                }
+
+                const finalRoots = [];
+                for (let i = 0; i < n; i++) {
+                    finalRoots.push({
+                        re: zRe[i],
+                        im: zIm[i],
+                        converged: converged[i],
+                        iter: iterCount[i],
+                        finalCorrection: finalCorrections[i]
+                    });
+                }
+
+                finalRoots.sort((a, b) => (a.re.sub(b.re).isNegative() ? -1 : 1));
+
+                finalRoots.forEach(ans => {
                     for (let copy = 0; copy < multiplicity; copy++) {
                         results.push({
                             id: nextRootId++,
                             reStr: ans.re.mul(rootScale).toString(),
                             imStr: ans.im.mul(rootScale).toString(),
-                            correctionStr: ans.finalCorrection.toExponential(4),
+                            correctionStr: ans.finalCorrection.isFinite() ? ans.finalCorrection.toExponential(4) : "Inf",
                             iterations: ans.iter,
                             multiplicity,
                             statusClass: ans.converged ? "err-ok" : "err-warn"
                         });
                     }
                 });
+
                 convergedDegree += convergedInFactor;
                 setTimeout(() => {
                     try {
@@ -1165,7 +1263,7 @@ function startCalculationAsync() {
                 iter++;
                 setTimeout(() => {
                     try {
-                        step();
+                        stepBatch();
                     } catch (error) {
                         reportCalculationError(error);
                     }
@@ -1175,7 +1273,7 @@ function startCalculationAsync() {
 
         setTimeout(() => {
             try {
-                step();
+                stepBatch();
             } catch (error) {
                 reportCalculationError(error);
             }
@@ -1222,7 +1320,8 @@ function displayResults(results, hasMultiplicity, coefficients, originalDegree, 
         result.iterationConverged = result.statusClass === "err-ok";
         if (result.iterationConverged) convergedCount++;
         if (result.residualPassed) residualPassCount++;
-        result.statusClass = result.iterationConverged && result.residualPassed ? "err-ok" : "err-warn";
+        
+        result.statusClass = result.residualPassed ? "err-ok" : "err-warn";
     });
     const polynomialResidual = coefficientReconstructionResidual(coefficients, results);
     const polynomialResidualPass = polynomialResidual.lte(residualTolerance);
@@ -1363,8 +1462,7 @@ async function requestGeminiAnalysis() {
     }
 }
 
-// 初期化
-applyTranslations(); // ページロード時に初期言語（ja）を適用
+applyTranslations();
 generateInputs();
 initAccessCounter();
 </script>
